@@ -28,7 +28,7 @@ export function* makeRequest<T>(options: OptionsType<T>) {
             }));
         }
 
-        const result = yield call(fetcher);
+        const result: T = yield call(fetcher);
 
         if (fill) {
             yield put(fill(result));
