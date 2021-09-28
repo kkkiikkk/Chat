@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <main>
+        <div class="filter">
+            <span class="checkbox">Облачно</span>
+            <span class="checkbox selected">Солнечно</span>
+            <p class="custom-input">
+                <label for="min-temperature">Минимальная температура</label>
+                <input id="min-temperature" type="text">
+            </p>
+            <p class="custom-input">
+                <label for="min-temperature">Максимальная температура</label>
+                <input id="max-temperature" type="text">
+            </p>
+            <button>Отфильтровать</button>
+        </div>
+        <div class="head">
+            <div class="icon cloudy"></div>
+            <div class="current-date">
+                <p>Пятница</p>
+                <span>29 ноября</span>
+            </div>
+        </div>
+        <div class="current-weather">
+            <p class="temperature">17</p>
+            <p class="meta">
+                <span class="rainy">%35</span>
+                <span class="humidity">%72</span>
+            </p>
+        </div>
+        <div class="forecast">
+            <div class="day cloudy selected">
+                <p>Пятница</p>
+                <span>17</span>
+            </div>
+            <div class="day cloudy">
+                <p>Суббота</p>
+                <span>19</span>
+            </div>
+            <div class="day cloudy">
+                <p>Понедельник</p>
+                <span>18</span>
+            </div>
+            <div class="day cloudy">
+                <p>Вторник</p>
+                <span>21</span>
+            </div>
+            <div class="day rainy">
+                <p>Среда</p>
+                <span>16</span>
+            </div>
+            <div class="day rainy">
+                <p>Четверг</p>
+                <span>19</span>
+            </div>
+            <div class="day sunny">
+                <p>Пятница</p>
+                <span>26</span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

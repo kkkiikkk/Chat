@@ -1,74 +1,64 @@
 // Core
-import React, { FC, useRef, useState } from 'react';
+import React, { FC } from 'react';
 
 // Components
-import { ErrorBoundary, Todo } from '../../components';
+import { Heade } from '../../components/Head';
+// import { Filt } from '../../components/Filter';
+import { Forecast } from '../../components/Forcast';
+import { ErrorBoundary, CurrentWeather } from '../../components';
 
-// Api
-import { useTodosQuery, useTodosMutations } from '../../../bus/todos';
+// Hooks
+import { useDays } from '../../../bus/days';
 
-// Redux
-import { useTogglersRedux } from '../../../bus/client/togglers';
-
-// Elements
-import { Button, Spinner } from '../../elements';
+import { useStateFilter } from '../../../bus/stateFilter';
 
 // Styles
-import { Container, Header } from './styles';
+import { Mains } from './style';
+import { Global } from './GlobalStyle';
+import { Forcast } from '../../components/Forcast/style';
+import { Filt } from '../../components/Filter';
+// import { CustomButton, CustomChekbox, CustomInput, CustomLabel, P, Filter } from '../../components/Filter/style';
 
 const Main: FC = () => {
-    const [ text, setText ] = useState<string>('');
-    const headerRef = useRef<HTMLElement>(null);
-    const { togglersRedux: { isOnline }} = useTogglersRedux();
-    const { data, loading } = useTodosQuery();
-    const { createTodo, updateTodo, deleteTodo } = useTodosMutations();
+    const { actions: {
+        selectDay,
+        selectMinTemperature,
+        selectMaxTemperature,
+        selectTypeWeather,
+    }, filteredDays,
+    } = useStateFilter();
 
-    if (loading) {
-        return <Spinner />;
+    const {  isDaysFetching } = useDays();
+
+    if (isDaysFetching) {
+        return <div>Loading...</div>;
     }
 
-    const onCreate = () => {
-        if (text !== '') {
-            createTodo({ body: { text }});
-            setText('');
-        }
-    };
-
     return (
-        <Container>
-            {false && <Spinner absolute />}
-            <Header ref = { headerRef }>
-                <nav />
-                <input
-                    value = { text }
-                    onChange = { (event) => void setText(event.target.value) }
-                />
-                <nav>
-                    <Button
-                        disabled = { !isOnline }
-                        title = 'Create TODO'
-                        onClick = { onCreate }>
-                        CREATE
-                    </Button>
-                </nav>
-            </Header>
-            <main>
+        <Mains>
+            <Global />
+            <Filt
+                handleSubmit = { selectMinTemperature }
+                handleSubmitMax = { selectMaxTemperature }
+            />
+            <Heade />
+            <CurrentWeather />
+            <Forcast>
                 {
-                    data.map((todo, index) => (
-                        <Todo
-                            isColor = { Boolean(index % 2) }
-                            key = { todo.id }
-                            { ...todo }
-                            deleteHandler = { () => void deleteTodo({ todoId: todo.id }) }
-                            updateHandler = { () => void updateTodo({
-                                todoId: todo.id,
-                                body:   { isCompleted: !todo.isCompleted },
-                            }) }
-                        />
-                    ))
+                    filteredDays.map((day) => {
+                        return (
+                            <div
+                                key = { day.id }
+                                onClick = { () => selectDay(day.id) }>
+                                <Forecast
+                                    { ...day }
+                                />
+                            </div>
+                        );
+                    })
                 }
-            </main>
-        </Container>
+            </Forcast>
+        </Mains>
     );
 };
 
