@@ -15,8 +15,8 @@ export const useStateFilter = ()=>{
     const { stateFilter, days } = useSelector((state) => state);
 
     const findedDay = days?.find((day) => day.id === stateFilter.selectedDay);
-
-    const filteredDays = days.filter(({ temperature }) => {
+    const typeDay = () => stateFilter.weatherFilters.type
+    const filteredDays = days.filter(({ temperature }) => {     
         const { minTemperature, maxTemperature } = stateFilter;
 
         if (minTemperature === null || maxTemperature === null) {
@@ -45,17 +45,21 @@ export const useStateFilter = ()=>{
     const selectTypeWeather = (dayType: DayType) => void dispatch(
         stateFilterActions.typeWeather(dayType),
     );
+
+    const togleTypeDay = (num: number) => void dispatch(stateFilterActions.selectTypeWeather(num))
     const selectDay = (id: string) => void dispatch(stateFilterActions.selectDay(id));
 
     return {
         stateFilter,
         findedDay,
         filteredDays,
+        typeDay,
         actions: {
             selectDay,
             selectMinTemperature,
             selectMaxTemperature,
             selectTypeWeather,
+            togleTypeDay,
         },
     };
 };

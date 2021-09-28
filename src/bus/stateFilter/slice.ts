@@ -6,7 +6,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { StateFilterState } from './types';
 
 // Reducers
-import {  selectDay, selectMinTemperature, selectMaxTemperature, typeWeather } from './reducers';
+import {  selectDay, selectMinTemperature, selectMaxTemperature, typeWeather, selectTypeWeather } from './reducers';
 
 
 const initialState: StateFilterState = {
@@ -26,6 +26,7 @@ export const stateFilterSlice = createSlice({
         selectMinTemperature,
         selectMaxTemperature,
         typeWeather,
+        selectTypeWeather,
     },
 });
 
