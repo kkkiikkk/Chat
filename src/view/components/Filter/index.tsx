@@ -41,10 +41,17 @@ export const CustomChekbox = styled.span<ButtonProps>`
     width: 25px;
     height: 25px;
     border: solid 1px #fff;
-    border-radius: 3px;
+    border-radius: 3px;     
     margin-left: 14px;
     }
-    content: '1'
+    ${(props) => props.selected && css`
+    :before { 
+      content: '✓'; 
+      position: absolute; 
+      right: 7px; 
+    } 
+    `}
+
 `;
 
 const initialState = {
@@ -52,36 +59,34 @@ const initialState = {
     maxTemperature: '',
 };
 
-const type = {
-    isSunny:  'sunny',
-    isCloudy: 'cloudy',
-};
 
 export const Filt: FC<PropsType> = (props) => {
-    const [ click, setClick ] = useState<number>();
+    const [ click, setClick ] = useState<number>(0);
 
     const [ form, handleChange, , resetForm ] = useForm<typeof initialState>(initialState);
-    console.log(props.typeDay())
-    const optionType = props.typeDay()
+    console.log(props.typeDay());
+    const optionType = props.typeDay();
 
     return (
         <Filter >
             <CustomChekbox
                 selected = { optionType === 'cloudy' }
                 onClick = { () => {
+                    setClick(1);
+
                     return (
-                        setClick(0),
-                        props.togleDay(click)
+                        props.togleDay(1)
                     );
                 }
                 }>Облачно
             </CustomChekbox>
             <CustomChekbox
-                selected = {true}
+                selected = { optionType === 'sunny' }
                 onClick = { () => {
+                    setClick(2);
+
                     return (
-                        setClick(1),
-                        props.togleDay(click)
+                        props.togleDay(2)
                     );
                 }
                 }>Солнечно
@@ -107,8 +112,8 @@ export const Filt: FC<PropsType> = (props) => {
             <CustomButton onClick = { () => {
                 return (
                     props.handleSubmit(form.minTemperature),
-                    props.handleSubmitMax(form.maxTemperature)
-
+                    props.handleSubmitMax(form.maxTemperature),
+                    props.typeDay(props.typeDay())
                 );
             }
             }>Отфильтровать

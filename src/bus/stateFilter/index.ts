@@ -15,22 +15,31 @@ export const useStateFilter = ()=>{
     const { stateFilter, days } = useSelector((state) => state);
 
     const findedDay = days?.find((day) => day.id === stateFilter.selectedDay);
-    const typeDay = () => stateFilter.weatherFilters.type
-    const filteredDays = days.filter(({ temperature }) => {     
-        const { minTemperature, maxTemperature } = stateFilter;
-
-        if (minTemperature === null || maxTemperature === null) {
+    const typeDay = () => stateFilter.weatherFilters.type;
+    const filteredDays = days.filter((day) => {
+        const { minTemperature, maxTemperature, weatherFilters } = stateFilter;
+        const { type } = weatherFilters;
+        if (minTemperature === null || maxTemperature === null || type === null) {
             return true;
         }
-
-        const isMinTemperatureValid = temperature >= minTemperature;
-        const isMaxTemperatureValid = temperature <= maxTemperature;
+        const validType = type === 'cloudy' || type === 'sunny';
+        const isTypeWeather = type === day.type;
+        const isMinTemperatureValid = day.temperature >= minTemperature;
+        const isMaxTemperatureValid = day.temperature <= maxTemperature;
         if (minTemperature && maxTemperature) {
             return isMaxTemperatureValid && isMinTemperatureValid;
-        } else if (minTemperature) {
+        } else if (minTemperature && !validType && !maxTemperature) {
             return isMinTemperatureValid;
-        } else if (maxTemperature) {
+        } else if (maxTemperature && !validType && !minTemperature) {
             return isMaxTemperatureValid;
+        } else if (validType && !minTemperature && !maxTemperature) {
+            return isTypeWeather;
+        } else if (validType && minTemperature && maxTemperature) {
+            return isMaxTemperatureValid && isMinTemperatureValid && isTypeWeather;
+        } else if (validType && minTemperature && !maxTemperature) {
+            return isMinTemperatureValid && isTypeWeather;
+        } else if (validType && maxTemperature && !minTemperature) {
+            return isMaxTemperatureValid && isTypeWeather;
         }
 
         return false;
@@ -46,7 +55,7 @@ export const useStateFilter = ()=>{
         stateFilterActions.typeWeather(dayType),
     );
 
-    const togleTypeDay = (num: number) => void dispatch(stateFilterActions.selectTypeWeather(num))
+    const togleTypeDay = (value: number) => void dispatch(stateFilterActions.selectTypeWeather(value));
     const selectDay = (id: string) => void dispatch(stateFilterActions.selectDay(id));
 
     return {

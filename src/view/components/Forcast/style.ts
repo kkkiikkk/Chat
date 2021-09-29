@@ -52,7 +52,7 @@ export const P = styled.p`
 `;
 
 export const Span = styled.span`
-    ::after {
+    &::after {
     margin-left: 5px;
     transform: translateY(-15px);
     content: '';

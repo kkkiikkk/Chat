@@ -20,7 +20,7 @@ export const Temperature = styled.p`
     line-height: 1;
     color: #fff;
     margin-bottom: 100px;
-    ::after {
+    &::after {
     position: absolute;
     top: 53px;
     right: -70px;
@@ -41,10 +41,10 @@ export const Span = styled.span`
     color: #fff;
     display: inline-flex;
     align-items: flex-start;
-    :first-child {
+    &:first-child {
     margin-right: 81px;
     }
-    ::before {
+    &::before {
         content: '';
     display: inline-block;
     width: 19px;
@@ -61,10 +61,10 @@ export const Spans = styled.span`
     color: #fff;
     display: inline-flex;
     align-items: flex-start;
-    :first-child {
+    &:first-child {
     margin-right: 81px;
     }
-::before {
+&::before {
     content: '';
     display: inline-block;
     width: 26px;

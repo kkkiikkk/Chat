@@ -1,5 +1,4 @@
 // Core
-import { Props } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
 export const Filter = styled.div`
@@ -34,7 +33,7 @@ export const CustomChekbox = styled.span`
     margin-left: 14px;
     }
     ::before {
-    content: ${(props:{type: string}) => props.type === 'sunny' ? '!' : null};
+    content: '1';
     position: absolute;
     right: 7px;
 }
@@ -80,7 +79,7 @@ export const CustomButton = styled.button`
     letter-spacing: 1px;
     color: #fff;
     text-transform: uppercase;
-    :hover {
+    &:hover {
     cursor: pointer;
     background-color: #966590;
     }

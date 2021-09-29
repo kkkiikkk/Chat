@@ -1,5 +1,4 @@
 // Types
-import { stat } from 'fs';
 import * as types from './types';
 
 export const selectDay: types.SelectDayContract = (state, action) => {
@@ -20,9 +19,11 @@ export const typeWeather: types.WeatherTypeContract = (state, action) => {
 };
 
 export const selectTypeWeather: types.SelectType = (state, action) => {
-    if (action.payload === 0) {
-        state.weatherFilters.type = 'sunny'
-    }else {
-        state.weatherFilters.type = 'cloudy'
+    if (action.payload === 1) {
+        state.weatherFilters.type = 'cloudy';
+    } else if (action.payload ===  2) {
+        state.weatherFilters.type = 'sunny';
+    } else if (action.payload === 0) {
+        state.weatherFilters.type === 'rainy';
     }
-}
+};
