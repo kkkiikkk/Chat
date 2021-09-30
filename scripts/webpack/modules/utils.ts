@@ -8,7 +8,7 @@ import {
 import WebpackBar from 'webpackbar';
 import FriendlyErrorsWebpackPlugin from 'friendly-errors-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { GenerateSW } from 'workbox-webpack-plugin';
+import { GenerateSW  } from 'workbox-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest';
 import dotenv from 'dotenv';
 import { resolve } from 'path';
@@ -17,7 +17,7 @@ import { resolve } from 'path';
 import { SOURCE_DIRECTORY } from '../constants';
 
 export const connectBuildProgressIndicator = (): Configuration => ({
-    plugins: [ new WebpackBar() ],
+    plugins: [ new WebpackBar({ basic: true }) ],
 });
 
 export const connectFriendlyErrors = (): Configuration => ({
@@ -100,6 +100,7 @@ export const generateManifest = (): Configuration => {
     });
 
     return {
+        // @ts-ignore
         plugins: [ manifest ],
     };
 };

@@ -7,7 +7,11 @@ import thunk from 'redux-thunk';
 const isDev = process.env.NODE_ENV === 'development';
 const sagaMiddleware = createSagaMiddleware();
 
+<<<<<<< HEAD:src/init/redux/middleware.ts
 const middleware: Middleware[] = [ sagaMiddleware, thunk ];
+=======
+const middleware: Middleware[] = [ sagaMiddleware ];
+>>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62:src/init/redux/middlewares/index.ts
 
 isDev && middleware.push(
     createLogger({

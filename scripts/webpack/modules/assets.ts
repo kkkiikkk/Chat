@@ -1,6 +1,7 @@
 // Core
 import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin';
 
 // Constants
 import { STATIC_DIRECTORY, APP_NAME } from '../constants';
@@ -19,18 +20,8 @@ export const loadImagesDev = (): Configuration => ({
     module: {
         rules: [
             {
-                test: /\.(gif|png|jpe?g|svg)$/i,
-                use:  [
-                    'file-loader',
-                    {
-                        loader:  'image-webpack-loader',
-                        // Disable optimizations
-                        options: {
-                            bypassOnDebug: true,
-                            disable:       true,
-                        },
-                    },
-                ],
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             },
         ],
     },
@@ -40,32 +31,20 @@ export const loadImagesProd = (): Configuration => ({
     module: {
         rules: [
             {
-                test: /\.(gif|png|jpe?g|svg)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif|webp)$/i,
+                type: 'asset/resource',
                 use:  [
-                    'file-loader',
                     {
-                        loader:  'image-webpack-loader',
-                        // https://github.com/tcoopman/image-webpack-loader
-                        // options and links
+                        loader:  ImageMinimizerPlugin.loader,
                         options: {
-                            mozjpeg: {
-                                progressive: true,
-                                quality:     65,
-                            },
-                            // optipng.enabled: false will disable optipng
-                            optipng: {
-                                enabled: false,
-                            },
-                            pngquant: {
-                                quality: [ 0.65, 0.90 ],
-                                speed:   4,
-                            },
-                            gifsicle: {
-                                interlaced: false,
-                            },
-                            // the webp option will enable WEBP
-                            webp: {
-                                quality: 75,
+                            deleteOriginalAssets: true,
+                            minimizerOptions:     {
+                                plugins: [
+                                    [ 'optipng', { optimizationLevel: 7, interlaced: null }],
+                                    [ 'jpegtran', { progressive: true }],
+                                    [ 'gifsicle', { optimizationLevel: 3, interlaced: false }],
+                                    [ 'webp', { quality: 75 }],
+                                ],
                             },
                         },
                     },
@@ -80,6 +59,7 @@ export const loadAudio = (): Configuration => ({
         rules: [
             {
                 test: /\.(wav|mp3)$/,
+                type: 'asset/resource',
                 use:  [
                     {
                         loader:  'file-loader',
@@ -97,15 +77,9 @@ export const loadFonts = (): Configuration => ({
     module: {
         rules: [
             {
-                test: /\.(woff|woff2|ttf|eot|otf)$/,
-                use:  [
-                    {
-                        loader:  'file-loader',
-                        options: {
-                            name: 'fonts/[name].[hash:5].[ext]',
-                        },
-                    },
-                ],
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                // FIXME OPTIONS
             },
         ],
     },
