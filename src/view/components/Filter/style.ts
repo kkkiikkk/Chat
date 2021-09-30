@@ -1,5 +1,14 @@
 // Core
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { DetailedHTMLProps } from 'react';
+
+
+interface ButtonProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
+    // use React.Ref instead of React.LegacyRef to prevent type incompatibility errors with styled-components types
+    selected: boolean;
+    isReset: boolean;
+    disabled: boolean
+}
 
 export const Filter = styled.div`
     position: absolute;
@@ -10,7 +19,7 @@ export const Filter = styled.div`
     align-items: flex-end;
 `;
 
-export const CustomChekbox = styled.span`
+export const CustomChekbox = styled.span<ButtonProps>`
     position: relative;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
@@ -20,30 +29,38 @@ export const CustomChekbox = styled.span`
     display: inline-flex;
     align-items: center;
     margin-bottom: 25px;
-    :hover {
+    ${(props) => !props.disabled && css`
+    &:hover {
     cursor: pointer;
-    }
-    ::after {
+    };
+    `}
+    &::after {
     content: '';
     display: inline-block;
     width: 25px;
     height: 25px;
     border: solid 1px #fff;
-    border-radius: 3px;
+    border-radius: 3px;     
     margin-left: 14px;
     }
-    ::before {
-    content: '1';
-    position: absolute;
-    right: 7px;
-}
+    ${(props) => props.selected  && css`
+    ::before { 
+      content: '✓'; 
+      position: absolute; 
+      right: 7px; 
+    } 
+    `}
+    ${(props) => props.isReset && css`
+    ::before
+        content: '';
+    `}
 `;
 
 export const P = styled.p`
     margin-bottom: 26px;
 `;
 
-export const CustomInput = styled.input`
+export const CustomInput = styled.input<{disable?: boolean}>`
     border-bottom: solid 1px #fff;
     border-top: none;
     border-right: none;
@@ -68,7 +85,7 @@ export const CustomLabel = styled.label`
     margin-right: 14px;
 `;
 
-export const CustomButton = styled.button`
+export const CustomButton = styled.button<{disabled?: boolean}>`
     background-color: #C584BC;
     border: none;
     padding: 10px 15px;
@@ -79,8 +96,10 @@ export const CustomButton = styled.button`
     letter-spacing: 1px;
     color: #fff;
     text-transform: uppercase;
-    &:hover {
+    ${(props) => !props.disabled && css`
+    :hover {
     cursor: pointer;
     background-color: #966590;
-    }
+        };
+    `};
 `;

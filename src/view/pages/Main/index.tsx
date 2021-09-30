@@ -24,9 +24,8 @@ const Main: FC = () => {
         selectDay,
         selectMinTemperature,
         selectMaxTemperature,
-        selectTypeWeather,
         togleTypeDay,
-    }, filteredDays, typeDay,
+    }, filteredDays, typeDay, resetValue, resetFiltered,
     } = useStateFilter();
 
     const {  isDaysFetching } = useDays();
@@ -41,8 +40,10 @@ const Main: FC = () => {
             <Filt
                 handleSubmit = { selectMinTemperature }
                 handleSubmitMax = { selectMaxTemperature }
-                togleDay = {togleTypeDay}
-                typeDay = {typeDay}
+                resetFiltred = { resetFiltered }
+                resetValue = { resetValue }
+                togleDay = { togleTypeDay }
+                typeDay = { typeDay }
             />
             <Heade />
             <CurrentWeather />

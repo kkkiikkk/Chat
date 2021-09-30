@@ -24,6 +24,7 @@ export const selectTypeWeather: types.SelectType = (state, action) => {
     } else if (action.payload ===  2) {
         state.weatherFilters.type = 'sunny';
     } else if (action.payload === 0) {
-        state.weatherFilters.type === 'rainy';
+        state.weatherFilters.type = null;
     }
 };
+

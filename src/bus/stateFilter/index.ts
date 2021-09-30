@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-param-reassign */
 // Core
 import { useDispatch } from 'react-redux';
 
@@ -15,36 +17,55 @@ export const useStateFilter = ()=>{
     const { stateFilter, days } = useSelector((state) => state);
 
     const findedDay = days?.find((day) => day.id === stateFilter.selectedDay);
+
     const typeDay = () => stateFilter.weatherFilters.type;
-    const filteredDays = days.filter((day) => {
+    let filteredDays = days.filter((day) => {
         const { minTemperature, maxTemperature, weatherFilters } = stateFilter;
-        const { type } = weatherFilters;
-        if (minTemperature === null || maxTemperature === null || type === null) {
+        if (minTemperature === null || maxTemperature === null) {
             return true;
         }
-        const validType = type === 'cloudy' || type === 'sunny';
-        const isTypeWeather = type === day.type;
+        const { type } = weatherFilters;
+        const typeDay = type === day.type;
         const isMinTemperatureValid = day.temperature >= minTemperature;
         const isMaxTemperatureValid = day.temperature <= maxTemperature;
-        if (minTemperature && maxTemperature) {
-            return isMaxTemperatureValid && isMinTemperatureValid;
-        } else if (minTemperature && !validType && !maxTemperature) {
-            return isMinTemperatureValid;
-        } else if (maxTemperature && !validType && !minTemperature) {
-            return isMaxTemperatureValid;
-        } else if (validType && !minTemperature && !maxTemperature) {
-            return isTypeWeather;
-        } else if (validType && minTemperature && maxTemperature) {
-            return isMaxTemperatureValid && isMinTemperatureValid && isTypeWeather;
-        } else if (validType && minTemperature && !maxTemperature) {
-            return isMinTemperatureValid && isTypeWeather;
-        } else if (validType && maxTemperature && !minTemperature) {
-            return isMaxTemperatureValid && isTypeWeather;
+        if (type !== null) {
+            if (minTemperature && maxTemperature) {
+                return isMaxTemperatureValid && isMinTemperatureValid;
+            } else if (minTemperature && !maxTemperature && !type) {
+                return isMinTemperatureValid;
+            } else if (maxTemperature && !minTemperature && !type) {
+                return isMaxTemperatureValid;
+            } else if (maxTemperature && minTemperature && type) {
+                return isMaxTemperatureValid && isMinTemperatureValid && typeDay;
+            } else if (type && !minTemperature && !maxTemperature) {
+                return typeDay;
+            } else if (type && minTemperature && !maxTemperature) {
+                return isMinTemperatureValid && typeDay;
+            } else if (type && maxTemperature && !minTemperature) {
+                return  isMaxTemperatureValid && typeDay;
+            }
+        } else if (type === null) {
+            if (minTemperature && maxTemperature) {
+                return isMaxTemperatureValid && isMinTemperatureValid;
+            } else if (minTemperature) {
+                return isMinTemperatureValid;
+            } else if (maxTemperature) {
+                return isMaxTemperatureValid;
+            }
         }
 
-        return false;
-    });
 
+        return true;
+    });
+    const resetValue = (val1:  null, val2?:null, val3?: null):null => {
+        // eslint-disable-next-line no-return-assign
+        return (
+            val1 = null,
+            val2 = null,
+            val3 = null
+        );
+    };
+    const resetFiltered = () => days.filter(() => true);
     const selectMinTemperature = (temperature: number) => void dispatch(
         stateFilterActions.selectMinTemperature(temperature),
     );
@@ -63,6 +84,8 @@ export const useStateFilter = ()=>{
         findedDay,
         filteredDays,
         typeDay,
+        resetValue,
+        resetFiltered,
         actions: {
             selectDay,
             selectMinTemperature,

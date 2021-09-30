@@ -1,12 +1,11 @@
 /* eslint-disable no-nested-ternary */
 
 // Core
-import React, { FC, useState, DetailedHTMLProps } from 'react';
-import styled, { css } from 'styled-components';
+import React, { FC, useState } from 'react';
 
 
 // Styles
-import { Filter, CustomButton, CustomLabel, CustomInput, P  } from './style';
+import { Filter, CustomButton, CustomLabel, CustomInput, P, CustomChekbox  } from './style';
 
 // Hooks
 import { useForm } from '../../../tools/hooks/useForm';
@@ -16,43 +15,9 @@ type PropsType = {
     handleSubmitMax: Function,
     togleDay: Function
     typeDay: Function
+    resetValue: Function
+    resetFiltred: Function
 }
-interface ButtonProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
-    // use React.Ref instead of React.LegacyRef to prevent type incompatibility errors with styled-components types
-    selected: boolean;
-}
-
-export const CustomChekbox = styled.span<ButtonProps>`
-    position: relative;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    text-transform: uppercase;
-    color: #fff;
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 25px;
-    &:hover {
-    cursor: pointer;
-    }
-    &::after {
-    content: '';
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    border: solid 1px #fff;
-    border-radius: 3px;     
-    margin-left: 14px;
-    }
-    ${(props) => props.selected && css`
-    :before { 
-      content: '✓'; 
-      position: absolute; 
-      right: 7px; 
-    } 
-    `}
-
-`;
 
 const initialState = {
     minTemperature: '',
@@ -61,32 +26,57 @@ const initialState = {
 
 
 export const Filt: FC<PropsType> = (props) => {
-    const [ click, setClick ] = useState<number>(0);
-
     const [ form, handleChange, , resetForm ] = useForm<typeof initialState>(initialState);
-    console.log(props.typeDay());
-    const optionType = props.typeDay();
+    const optionType: string = props.typeDay();
+    const [ isClicked, setIsClicked ] = useState<boolean>(true);
+    const [ reset, setReset ] = useState<boolean>(true);
+    const [ isReset, setIsReset ] = useState<boolean>(Boolean);
+    const [ isDisable, setIsDisable ] = useState<boolean>(false);
+    const clickNotReset = () => {
+        return (
+            props.handleSubmit(form.minTemperature),
+            props.handleSubmitMax(form.maxTemperature),
+            setReset(false),
+            props.typeDay(),
+            setIsReset(false),
+            setIsDisable(true)
+        );
+    };
+    const clickReset = () => {
+        return (
+            setReset(true),
+            setIsReset(true),
+            resetForm(form.maxTemperature, form.minTemperature),
+            props.togleDay(0),
+            props.resetValue(),
+            setIsClicked(true),
+            setIsDisable(false),
+            props.resetFiltred()
+        );
+    };
 
     return (
         <Filter >
             <CustomChekbox
+                disabled = { isDisable }
+                isReset = { isReset }
                 selected = { optionType === 'cloudy' }
                 onClick = { () => {
-                    setClick(1);
-
                     return (
-                        props.togleDay(1)
+                        props.togleDay(1),
+                        setIsClicked(false)
                     );
                 }
                 }>Облачно
             </CustomChekbox>
             <CustomChekbox
+                disabled = { isDisable }
+                isReset = { isReset }
                 selected = { optionType === 'sunny' }
                 onClick = { () => {
-                    setClick(2);
-
                     return (
-                        props.togleDay(2)
+                        props.togleDay(2),
+                        setIsClicked(false)
                     );
                 }
                 }>Солнечно
@@ -94,29 +84,31 @@ export const Filt: FC<PropsType> = (props) => {
             <P>
                 <CustomLabel>Минимальная температура</CustomLabel>
                 <CustomInput
+                    disabled = {    isDisable }
                     name = 'minTemperature'
                     type = 'number'
                     value = { form.minTemperature }
-                    onChange = { (event) => void  handleChange(event, true) }
+                    onChange = { (event) => void  handleChange(event, true) &&  setIsClicked(false) }
                 />
             </P>
             <P>
                 <CustomLabel>Максимальная температура</CustomLabel>
                 <CustomInput
+                    disabled = { isDisable }
                     name = 'maxTemperature'
                     type = 'number'
                     value = { form.maxTemperature }
-                    onChange = { (event) => void  handleChange(event, true) }
+                    onChange = { (event) => {
+                        return (
+                            handleChange(event, true),
+                            setIsClicked(false)
+                        );
+                    } }
                 />
             </P>
-            <CustomButton onClick = { () => {
-                return (
-                    props.handleSubmit(form.minTemperature),
-                    props.handleSubmitMax(form.maxTemperature),
-                    props.typeDay(props.typeDay())
-                );
-            }
-            }>Отфильтровать
+            <CustomButton
+                disabled = { isClicked }
+                onClick = { !reset ?  clickReset : clickNotReset     }>{reset ?  'Отфильтровать' : 'Сбросить'}
             </CustomButton>
         </Filter>
     );
