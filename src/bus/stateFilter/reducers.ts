@@ -19,12 +19,24 @@ export const typeWeather: types.WeatherTypeContract = (state, action) => {
 };
 
 export const selectTypeWeather: types.SelectType = (state, action) => {
-    if (action.payload === 1) {
+    if (action.payload === 'cloudy') {
         state.weatherFilters.type = 'cloudy';
-    } else if (action.payload ===  2) {
+    } else if (action.payload ===  'sunny') {
         state.weatherFilters.type = 'sunny';
-    } else if (action.payload === 0) {
+    } else if (action.payload === 'reset') {
         state.weatherFilters.type = null;
+    }
+};
+
+export const resetTemperatureMin: types.resetTemperature = (state, action) => {
+    if (action.payload === 'min') {
+        state.minTemperature = null;
+    }
+};
+
+export const resetTemperatureMax: types.resetTemperature = (state, action) => {
+    if (action.payload === 'max') {
+        state.maxTemperature = null;
     }
 };
 

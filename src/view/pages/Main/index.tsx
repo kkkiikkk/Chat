@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 
 // Components
 import { Heade } from '../../components/Head';
-// import { Filt } from '../../components/Filter';
 import { Forecast } from '../../components/Forcast';
 import { ErrorBoundary, CurrentWeather } from '../../components';
 
@@ -17,7 +16,7 @@ import { Mains } from './style';
 import { Global } from './GlobalStyle';
 import { Forcast } from '../../components/Forcast/style';
 import { Filt } from '../../components/Filter';
-// import { CustomButton, CustomChekbox, CustomInput, CustomLabel, P, Filter } from '../../components/Filter/style';
+
 
 const Main: FC = () => {
     const { actions: {
@@ -25,7 +24,9 @@ const Main: FC = () => {
         selectMinTemperature,
         selectMaxTemperature,
         togleTypeDay,
-    }, filteredDays, typeDay, resetValue, resetFiltered,
+        resetMax,
+        resetMin,
+    }, filteredDays, typeDay,
     } = useStateFilter();
 
     const {  isDaysFetching } = useDays();
@@ -40,8 +41,8 @@ const Main: FC = () => {
             <Filt
                 handleSubmit = { selectMinTemperature }
                 handleSubmitMax = { selectMaxTemperature }
-                resetFiltred = { resetFiltered }
-                resetValue = { resetValue }
+                resetMax = { resetMax }
+                resetMin = { resetMin }
                 togleDay = { togleTypeDay }
                 typeDay = { typeDay }
             />

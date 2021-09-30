@@ -18,4 +18,5 @@ export type StateFilterState = {
 export type SelectDayContract = CaseReducer<StateFilterState, PayloadAction<string>>
 export type SelectTemperatureContract = CaseReducer<StateFilterState, PayloadAction<number>>
 export type WeatherTypeContract = CaseReducer<StateFilterState, PayloadAction<DayType | null>>
-export type SelectType = CaseReducer<StateFilterState, PayloadAction<number>>
+export type SelectType = CaseReducer<StateFilterState, PayloadAction<string>>
+export type resetTemperature = CaseReducer<StateFilterState, PayloadAction<string>>

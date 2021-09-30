@@ -1,7 +1,6 @@
-/* eslint-disable no-nested-ternary */
 
 // Core
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 
 
 // Styles
@@ -9,14 +8,15 @@ import { Filter, CustomButton, CustomLabel, CustomInput, P, CustomChekbox  } fro
 
 // Hooks
 import { useForm } from '../../../tools/hooks/useForm';
+import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 
 type PropsType = {
     handleSubmit: Function,
     handleSubmitMax: Function,
     togleDay: Function
     typeDay: Function
-    resetValue: Function
-    resetFiltred: Function
+    resetMax: Function
+    resetMin: Function
 }
 
 const initialState = {
@@ -28,30 +28,40 @@ const initialState = {
 export const Filt: FC<PropsType> = (props) => {
     const [ form, handleChange, , resetForm ] = useForm<typeof initialState>(initialState);
     const optionType: string = props.typeDay();
-    const [ isClicked, setIsClicked ] = useState<boolean>(true);
-    const [ reset, setReset ] = useState<boolean>(true);
-    const [ isReset, setIsReset ] = useState<boolean>(Boolean);
-    const [ isDisable, setIsDisable ] = useState<boolean>(false);
+    const {
+        clickFalse,
+        clickTrue,
+        isClicked,
+        clickResetFalse,
+        clickResetTrue,
+        reset,
+        clickIsResetFalse,
+        clickIsResetTrue,
+        isReset,
+        clickIsDisableFalse,
+        clickIsDisableTrue,
+        isDisable,
+    } = useFilterStyle();
     const clickNotReset = () => {
         return (
             props.handleSubmit(form.minTemperature),
             props.handleSubmitMax(form.maxTemperature),
-            setReset(false),
+            clickResetTrue(),
             props.typeDay(),
-            setIsReset(false),
-            setIsDisable(true)
+            clickIsResetTrue(),
+            clickIsDisableFalse()
         );
     };
     const clickReset = () => {
         return (
-            setReset(true),
-            setIsReset(true),
+            clickResetFalse(),
+            clickIsResetFalse(),
             resetForm(form.maxTemperature, form.minTemperature),
-            props.togleDay(0),
-            props.resetValue(),
-            setIsClicked(true),
-            setIsDisable(false),
-            props.resetFiltred()
+            props.togleDay('reset'),
+            clickFalse(),
+            clickIsDisableTrue(),
+            props.resetMax('max'),
+            props.resetMin('min')
         );
     };
 
@@ -62,10 +72,12 @@ export const Filt: FC<PropsType> = (props) => {
                 isReset = { isReset }
                 selected = { optionType === 'cloudy' }
                 onClick = { () => {
-                    return (
-                        props.togleDay(1),
-                        setIsClicked(false)
-                    );
+                    if (isClicked) {
+                        return (
+                            props.togleDay('cloudy'),
+                            clickTrue()
+                        );
+                    }
                 }
                 }>Облачно
             </CustomChekbox>
@@ -74,10 +86,12 @@ export const Filt: FC<PropsType> = (props) => {
                 isReset = { isReset }
                 selected = { optionType === 'sunny' }
                 onClick = { () => {
-                    return (
-                        props.togleDay(2),
-                        setIsClicked(false)
-                    );
+                    if (isClicked) {
+                        return (
+                            props.togleDay('sunny'),
+                            clickTrue()
+                        );
+                    }
                 }
                 }>Солнечно
             </CustomChekbox>
@@ -88,7 +102,12 @@ export const Filt: FC<PropsType> = (props) => {
                     name = 'minTemperature'
                     type = 'number'
                     value = { form.minTemperature }
-                    onChange = { (event) => void  handleChange(event, true) &&  setIsClicked(false) }
+                    onChange = { (event) => {
+                        return (
+                            handleChange(event, true),
+                            clickTrue()
+                        );
+                    } }
                 />
             </P>
             <P>
@@ -101,7 +120,7 @@ export const Filt: FC<PropsType> = (props) => {
                     onChange = { (event) => {
                         return (
                             handleChange(event, true),
-                            setIsClicked(false)
+                            clickTrue()
                         );
                     } }
                 />

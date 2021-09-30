@@ -96,10 +96,12 @@ export const CustomButton = styled.button<{disabled?: boolean}>`
     letter-spacing: 1px;
     color: #fff;
     text-transform: uppercase;
-    ${(props) => !props.disabled && css`
+    ${(props) => !props.disabled ? css`
     :hover {
     cursor: pointer;
     background-color: #966590;
         };
+    ` : css`
+        opacity: 0.5
     `};
 `;
