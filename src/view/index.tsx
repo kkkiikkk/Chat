@@ -3,10 +3,6 @@ import React, { FC, useEffect, useCallback } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 // Containers
-<<<<<<< HEAD:src/view/index.tsx
-=======
-import { TopBar } from './containers/TopBar';
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62:src/view/App/index.tsx
 import { Routes } from './routes';
 
 // Hooks
@@ -39,7 +35,6 @@ export const App: FC = () => {
             <GlobalStyles />
             <AppContainer>
                 <Routes />
-                <p className = 'www'>adssdddddddd</p>
             </AppContainer>
         </ThemeProvider>
     );

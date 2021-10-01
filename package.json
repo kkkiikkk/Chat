@@ -14,24 +14,6 @@
         "serve": "serve \"./build\" -s"
     },
     "dependencies": {
-<<<<<<< HEAD
-        "@fortawesome/fontawesome-svg-core": "^1.2.34",
-        "@fortawesome/free-solid-svg-icons": "^5.15.2",
-        "@fortawesome/react-fontawesome": "^0.1.14",
-        "@reduxjs/toolkit": "^1.6.1",
-        "lodash": "^4.17.20",
-        "moment": "^2.29.1",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
-        "react-redux": "^7.2.2",
-        "react-router-dom": "^5.2.0",
-        "redux": "^4.0.5",
-        "redux-saga": "^1.1.3",
-        "store": "^2.0.12",
-        "styled-components": "^5.2.1",
-        "styled-reset": "^4.3.4",
-        "thunk": "0.0.1",
-=======
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@fortawesome/react-fontawesome": "^0.1.15",
@@ -47,7 +29,6 @@
         "store": "^2.0.12",
         "styled-components": "^5.3.1",
         "styled-reset": "^4.3.4",
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62
         "uuid": "^8.3.2"
     },
     "devDependencies": {
@@ -69,18 +50,6 @@
         "@types/react-router-dom": "^5.3.0",
         "@types/redux-logger": "^3.0.9",
         "@types/store": "^2.0.2",
-<<<<<<< HEAD
-        "@types/styled-components": "^5.1.7",
-        "@types/terser-webpack-plugin": "^5.0.2",
-        "@types/uuid": "^8.3.1",
-        "@types/webpack-bundle-analyzer": "^3.9.0",
-        "@types/webpack-dev-server": "^3.11.1",
-        "@types/webpack-hot-middleware": "^2.25.3",
-        "@types/webpack-manifest-plugin": "^3.0.3",
-        "@types/webpack-merge": "^4.1.5",
-        "@types/webpackbar": "^4.0.0",
-        "@types/workbox-webpack-plugin": "^5.1.5",
-=======
         "@types/styled-components": "^5.1.14",
         "@types/terser-webpack-plugin": "^5.2.0",
         "@types/uuid": "^8.3.1",
@@ -91,7 +60,6 @@
         "@types/webpack-merge": "^5.0.0",
         "@types/webpackbar": "^4.0.2",
         "@types/workbox-webpack-plugin": "^5.1.8",
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62
         "@typescript-eslint/eslint-plugin": "^4.14.1",
         "@typescript-eslint/parser": "^4.14.1",
         "app-root-path": "3.0.0",
@@ -119,33 +87,11 @@
         "imagemin-webp": "^6.0.0",
         "inquirer": "^8.1.5",
         "lodash-webpack-plugin": "^0.11.6",
-<<<<<<< HEAD
-        "mini-css-extract-plugin": "^1.3.4",
-        "react-dev-utils": "^11.0.1",
-=======
         "mini-css-extract-plugin": "^2.3.0",
         "react-dev-utils": "^11.0.4",
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62
         "react-hot-loader": "^4.13.0",
         "redux-devtools-extension": "^2.13.9",
         "redux-logger": "^3.0.6",
-<<<<<<< HEAD
-        "serve": "^11.3.2",
-        "source-map-loader": "^2.0.0",
-        "style-loader": "^2.0.0",
-        "ts-loader": "^8.0.14",
-        "ts-node": "^9.1.1",
-        "typescript": "^4.1.3",
-        "typescript-plugin-styled-components": "^1.4.4",
-        "webpack": "^4.44.2",
-        "webpack-bundle-analyzer": "^3.9.0",
-        "webpack-dev-server": "^3.11.2",
-        "webpack-hot-middleware": "^2.25.0",
-        "webpack-merge": "^5.7.3",
-        "webpack-pwa-manifest": "^4.2.0",
-        "webpackbar": "^4.0.0",
-        "workbox-webpack-plugin": "^5.1.4"
-=======
         "serve": "^12.0.1",
         "source-map-loader": "^3.0.0",
         "style-loader": "^3.3.0",
@@ -161,6 +107,5 @@
         "webpack-pwa-manifest": "^4.3.0",
         "webpackbar": "^5.0.0-3",
         "workbox-webpack-plugin": "^6.3.0"
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62
     }
 }

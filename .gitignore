@@ -10,7 +10,7 @@
 # Files
 *.log
 *.env
-.env.development
+# .env.development
 .env.production
 
 # == VIM ==

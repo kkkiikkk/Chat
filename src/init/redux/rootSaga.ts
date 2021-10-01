@@ -2,12 +2,8 @@
 import { all } from 'redux-saga/effects';
 
 // Instruments
-import { watchTodos } from '../../bus/todos/saga';
-import { watchMessages } from '../../bus/messages/saga';
+import { watchDays } from '../../bus/days/saga';
 
 export function* rootSaga() {
-    yield all([
-        watchTodos(),
-        watchMessages(),
-    ]);
+    yield all([ watchDays() ]);
 }

@@ -11,10 +11,13 @@ import { stateFilterActions } from './slice';
 
 // Types
 import { DayType } from '../days/types';
+import { useDays } from '../days';
 
 export const useStateFilter = ()=>{
     const dispatch = useDispatch();
+    useDays();
     const { stateFilter, days } = useSelector((state) => state);
+    const findedDay = days?.find((day) => day.id === stateFilter.selectedDay);
 
     const typeDay = () => stateFilter.weatherFilters.type;
     let filteredDays = days.filter((day) => {
@@ -48,7 +51,6 @@ export const useStateFilter = ()=>{
 
         return true;
     });
-    const findedDay = days?.find((day) => day.id === stateFilter.selectedDay);
 
     const selectMinTemperature = (temperature: number) => void dispatch(
         stateFilterActions.selectMinTemperature(temperature),

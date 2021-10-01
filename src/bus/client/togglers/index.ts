@@ -9,10 +9,7 @@ const initialState = {
     isOnline:           navigator.onLine,
     isMessagesFetching: false,
     isTodosFetching:    false,
-<<<<<<< HEAD
     isDaysFetching:     false,
-=======
->>>>>>> d11fd3327596b6cf0668d67ebe514215fe4aac62
 };
 
 // Types
