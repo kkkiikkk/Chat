@@ -1,38 +1,64 @@
-// Core
-import React, { FC, useState } from 'react';
+/* eslint-disable max-statements-per-line */
+import { FC, useState } from 'react';
+import React from 'react';
+import { ChangeEvent } from 'react';
+import { Basket } from '../../components/basket';
+import { Header } from '../../components/header';
+import { GoodsList } from '../../components/goodsList';
+import { Search } from '../../components/search';
+import { Snack } from '../../components/snack';
 
-// Components
-import { ErrorBoundary } from '../../components';
+import { goods, TypeGoodsState } from '../data';
+import { Container } from '@material-ui/core';
+import { ErrorBoundary } from '../../components/ErrorBoundary';
 
-// Redux
-import { useCounter } from '../../../bus/counter';
-import { useMessages } from '../../../bus/messages';
+export const Main: FC = () => {
+    const [ order, setOrder ] = useState<TypeGoodsState>([]);
+    const [ search, setSearch ] = useState('');
+    const [ products, setProducts ] = useState(goods);
+    const [ isCartOpen, setCartOpen ] = useState(false);
+    const [ isSnackOpen, setSnackOpen ] = useState(false);
 
-// Elements
-import { Button } from '../../elements';
+    const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
+        if (!event.target.value) {
+            setProducts(goods);
+            setSearch('');
 
-// Styles
-import { Container } from './styles';
+            return;
+        }
 
-const Main: FC = () => {
-    const [ amount, setAmount ] = useState<number>(0);
-    const { counterState, increment, decrement, incrementByAmount } = useCounter();
-    const { messages, loading } = useMessages();
+        setSearch(event.target.value);
+        setProducts(
+            products.filter((good) => good.name.toLowerCase().includes(event.target.value.toLowerCase())),
+        );
+    };
 
-    console.log('🚀', messages);
-    console.log('🚀', loading);
 
     return (
-        <Container>
-            counterState: {counterState}
-            <Button onClick = { () => void increment() }>+</Button>
-            <Button onClick = { () => void decrement() }>-</Button>
-            <input
-                value = { amount }
-                onChange = { (event) => void setAmount(parseInt(event.target.value, 10)) }
+        <>
+            <Header
+                handleCart = { () => void setCartOpen(true) }
+                orderLen = { order.length }
             />
-            <Button onClick = { () => void incrementByAmount(amount) }>incrementByAmount</Button>
-        </Container>
+            <Container >
+                <Search
+                    value = { search }
+                    onChange = { handleChange }
+                />
+                <GoodsList
+                    goods = { products }
+                />
+            </Container>
+            <Basket
+                cartOpen = { isCartOpen }
+                closeCart = { () => void setCartOpen(false) }
+                order = { order }
+            />
+            <Snack
+                handleClose = { () => void setSnackOpen(false) }
+                isOpen = { isSnackOpen }
+            />
+        </>
     );
 };
 
