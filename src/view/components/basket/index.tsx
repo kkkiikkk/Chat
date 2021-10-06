@@ -11,6 +11,7 @@ type Props = {
     cartOpen: boolean,
     closeCart: Function,
     order: TypeGoodsState,
+    removeFromOrder: Function,
 }
 
 export const Basket: FC<Props> = (props: Props) => {
@@ -18,6 +19,7 @@ export const Basket: FC<Props> = (props: Props) => {
         cartOpen,
         closeCart,
         order = [],
+        removeFromOrder,
     } = props;
 
     return (
@@ -41,6 +43,7 @@ export const Basket: FC<Props> = (props: Props) => {
                         {order.map((item: TypeGoods) => (
                             <BasketItem
                                 key = { item.name }
+                                removeFromOrder = { removeFromOrder }
                                 { ...item }
                             />
                         ))}

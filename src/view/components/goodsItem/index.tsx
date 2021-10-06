@@ -4,13 +4,15 @@ import  { FC }  from 'react';
 import * as React from 'react';
 
 type Props = {
+    id: string,
     name: string,
     price: number,
-    poster: string
+    poster: string,
+    setOrder: Function
 }
 
 export const GoodsItem: FC<Props> = (props: Props) => {
-    const { name, price, poster } = props;
+    const { name, price, poster, setOrder } = props;
 
     return (
         <Grid
@@ -37,7 +39,13 @@ export const GoodsItem: FC<Props> = (props: Props) => {
                 </CardContent>
                 <CardActions>
                     <Button
-                        variant = 'text'>
+                        variant = 'text'
+                        onClick = { () => setOrder({
+                            id:    props.id,
+                            name:  props.name,
+                            price: props.price,
+                        })
+                        }>
                         Купить
                     </Button>
                 </CardActions>
