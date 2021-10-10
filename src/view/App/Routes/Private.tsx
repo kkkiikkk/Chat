@@ -1,6 +1,7 @@
 // Core
 import React, { FC, useEffect } from 'react';
 import { Switch, Route, Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Login } from '../../components/Registration/index';
 
 // Pages
 import { Main } from '../../pages';
@@ -20,7 +21,8 @@ export const Private: FC = () => {
             <Route
                 exact
                 path = '/'>
-                <Main />
+                {/* <Main /> */}
+                <Login />
             </Route>
             <Redirect to = '/form' />
         </Switch>

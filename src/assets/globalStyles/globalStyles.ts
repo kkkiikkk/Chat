@@ -19,5 +19,6 @@ export const GlobalStyles = createGlobalStyle`
     input[type=number] {
         -moz-appearance: textfield;
     }
+
 `;
 
