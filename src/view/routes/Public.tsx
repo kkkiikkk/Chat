@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Pages
-import  Login  from '../../view/pages/Registration';
+import  { Login }  from '../../view/pages/index';
 
 export const Public: FC = () => {
     return (

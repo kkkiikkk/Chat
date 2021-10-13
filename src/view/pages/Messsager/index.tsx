@@ -1,22 +1,20 @@
 /* eslint-disable no-undef */
 // Core
-import React, { FC, useState, useRef, useEffect, ChangeEvent, SyntheticEvent } from 'react';
+import React, { FC, useState, useRef, useEffect } from 'react';
 import { useSelector } from '../../../tools/hooks';
 import { useAuth } from '../../../bus/profile/saga';
 import { useUsers } from '../../../bus/messages';
-import localStore from 'store';
 // Components
 import { ErrorBoundary } from '../../components';
-import { Box, Typography, CardContent } from '@mui/material';
+import {  Typography } from '@mui/material';
 import  moment  from 'moment';
 // Styles
 import { GlobalStylesComponents } from '../Registration/GlobalStyles';
-import { CustomButton, CustomInput, MessageBox, UserBox } from '../Registration/styles';
+import { CustomButton } from '../Registration/styles';
 import { NavLink } from 'react-router-dom';
 import { useUserName } from '../../../bus/profile';
 import { useMessage } from '../../../bus/messages/saga';
-import { textAlign } from '@mui/system';
-
+import { Message, Chat, MessagesContainer, CustomInput, Footer, Send } from './styles';
 
 const initial = {
     username: '',
@@ -32,23 +30,21 @@ const Messasger: FC = () => {
     const { createMessages } = useMessage();
     const messageEl = useRef<HTMLHeadingElement | null>(null);
     useEffect(() => {
-        messageEl.current?.addEventListener('DOMNodeInserted', (event: any) => {
+        messageEl.current?.addEventListener('DOMNodeInserted', (event:any) => {
             event.currentTarget.scroll({ top: event.currentTarget.scrollHeight, behavior: 'smooth' });
-        });
+        }, false);
     }, []);
     const p = users.map(({ text, _id, username, createdAt, updatedAt }) => {
         return (
 
-
-            <CardContent
+            <Message
                 key = { _id }
-                sx = {{ height: '100px', margin: '40px' }}>
-                <Typography sx = {{ height: '40px', backgroundColor: 'purple' }}>{username}</Typography>
-                <Typography sx = {{ height: '40px', backgroundColor: 'purple' }}>{text}</Typography>
-                <Typography sx = {{ height: '40px', backgroundColor: 'purple' }}>{moment(createdAt).format('LT')}</Typography>
-                <Typography sx = {{ height: '40px', backgroundColor: 'purple' }}>{createdAt === updatedAt ? 'Неисправлено' : 'Исправлено' }</Typography>
-            </CardContent>
-
+                userMessage = { stateUserSlice.username === username }>
+                <p>{username}</p>
+                <p>{text}</p>
+                <p>{moment(createdAt).format('LT')}</p>
+                <p>{createdAt === updatedAt ? 'Неисправлено' : 'Исправлено' }</p>
+            </Message>
         );
     }).reverse();
     initial.username = stateUserSlice.username;
@@ -68,40 +64,24 @@ const Messasger: FC = () => {
                 </NavLink>
             </CustomButton>
             <Typography sx = {{ fontSize: '40px', margin: '0 auto' }}>Helo User: {stateUserSlice.username}</Typography>
-            <Box
-                ref = { messageEl }
-                sx = {{
-                    float:          'left',
-                    width:          '600px',
-                    height:         '660px',
-                    padding:        '0 10px',
-                    maxHeight:      '100%',
-                    overflowY:      'auto',
-                    display:        'flex',
-                    flexDirection:  'column',
-                    justifyContent: 'center',
-                    margin:         '0 auto',
-
-                }}>
-                {p}
-            </Box>
-            <MessageBox>
-
-                <UserBox>
+            <Chat>
+                <MessagesContainer ref = { messageEl }>
+                    {p}
+                </MessagesContainer>
+                <Footer>
                     <CustomInput
                         type = 'text'
                         value = { message }
-                        onChange = { (event) => void setMessage(event.target.value) }>
+                        onChange = { (event) =>     void setMessage(event.target.value) }>
                     </CustomInput>
-                </UserBox>
-                <CustomButton
-                    onClick = { () =>  {
+                    <Send onClick = { () =>  {
                         createMessages({ text: message, username: stateUserSlice.username });
                         setMessage('');
-                    } }>
-                    Send
-                </CustomButton>
-            </MessageBox>
+                    } }>SEND
+                    </Send>
+                </Footer>
+
+            </Chat>
         </>
 
     );
@@ -112,3 +92,4 @@ export default () => (
         <Messasger />
     </ErrorBoundary>
 );
+
