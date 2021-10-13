@@ -1,5 +1,5 @@
 // Core
-import  styled  from 'styled-components';
+import  styled, { css }  from 'styled-components';
 
 
 export const Message = styled.div<{userMessage: boolean}>`
@@ -50,10 +50,14 @@ export const Footer = styled.div`
 
 `;
 
-export const Send = styled.div`
+export const Send = styled.div<{disabled: boolean}>`
 text-align:center;
-cursor:pointer;
 background-color: #00cec9;
 padding:8px;
 margin:0;
+${(props) => !props.disabled && css`
+    &:hover {
+    cursor: pointer;
+    };
+`};   
 `;

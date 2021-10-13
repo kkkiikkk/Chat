@@ -1,5 +1,5 @@
 // Core
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const UserBox = styled.div`
@@ -67,7 +67,34 @@ export const CustomLabel = styled.label`
   transition: .5s;
 `;
 
-export const CustomButton = styled.button`
+export const CustomButton = styled.button<{disabled: boolean}>`
+  behavior: 'smooth';
+  position: relative;
+  width: 180px;
+  display: inline-block;
+  padding:  10px 20px;
+  color: #03e9f4;
+  font-size: 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: .5s;
+  letter-spacing: 4px;
+  background: rgba(0,0,0,.5);
+  box-shadow:0 15px 25px rgba(0,0,0,.6);
+  ${(props) => !props.disabled && css`
+    &:hover {
+    background: #03e9f4;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #03e9f4,
+                0 0 25px #03e9f4,
+                0 0 50px #03e9f4,
+                0 0 100px #03e9f4;
+  }
+  `}
+`;
+export const CustomButtonOut = styled.button`
   behavior: 'smooth';
   position: relative;
   width: 180px;

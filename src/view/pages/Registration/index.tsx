@@ -10,11 +10,13 @@ import { useAuth } from '../../../bus/profile/saga';
 import {  GlobalStylesComponents } from './GlobalStyles';
 import { LoginBox, UserName, CustomInput, UserBox, CustomLabel, CustomButton, CustomLink } from './styles';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
+import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 
 
 const Login:FC = () => {
     const { createUser } = useAuth();
     const [ name, setName ] = useState('');
+    const { clickFalse, clickTrue, isClicked } = useFilterStyle();
 
     return (
         <>
@@ -26,16 +28,25 @@ const Login:FC = () => {
                         <CustomInput
                             name = 'userName'
                             value = { name }
-                            onChange = { (event) => void setName(event.target.value) }>
+                            onChange = { (event) => {
+                                setName(event.target.value);
+                                clickTrue();
+                            }
+                            }>
                         </CustomInput>
                         <CustomLabel>Username</CustomLabel>
                     </UserBox>
                     <CustomLink
                         to = '/message'
                         type = 'submit'>
-                        <CustomButton onClick = { () => {
-                            createUser(name);
-                        } }>
+                        <CustomButton
+                            disabled = { isClicked }
+                            onClick = { () => {
+                                if (!isClicked) {
+                                    createUser(name);
+                                    clickFalse();
+                                }
+                            } }>
                             Submit
                         </CustomButton>
                     </CustomLink>

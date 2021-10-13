@@ -1,16 +1,17 @@
-/* eslint-disable no-undef */
+
 // Core
 import React, { FC, useState, useRef, useEffect } from 'react';
 import { useSelector } from '../../../tools/hooks';
 import { useAuth } from '../../../bus/profile/saga';
 import { useUsers } from '../../../bus/messages';
+import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 // Components
 import { ErrorBoundary } from '../../components';
 import {  Typography } from '@mui/material';
 import  moment  from 'moment';
 // Styles
 import { GlobalStylesComponents } from '../Registration/GlobalStyles';
-import { CustomButton } from '../Registration/styles';
+import { CustomButtonOut } from '../Registration/styles';
 import { NavLink } from 'react-router-dom';
 import { useUserName } from '../../../bus/profile';
 import { useMessage } from '../../../bus/messages/saga';
@@ -28,6 +29,7 @@ const Messasger: FC = () => {
     const { users } = useUsers();
     const [ message, setMessage ] = useState<string>(initial.text);
     const { createMessages } = useMessage();
+    const { clickFalse, clickTrue, isClicked } = useFilterStyle();
     const messageEl = useRef<HTMLHeadingElement | null>(null);
     useEffect(() => {
         messageEl.current?.addEventListener('DOMNodeInserted', (event:any) => {
@@ -52,7 +54,7 @@ const Messasger: FC = () => {
     return (
         <>
             <GlobalStylesComponents />
-            <CustomButton
+            <CustomButtonOut
                 type = 'submit'
                 onClick = { () => {
                     logOutUser();
@@ -62,7 +64,7 @@ const Messasger: FC = () => {
                     to = '/login'>
                     Log Out
                 </NavLink>
-            </CustomButton>
+            </CustomButtonOut>
             <Typography sx = {{ fontSize: '40px', margin: '0 auto' }}>Helo User: {stateUserSlice.username}</Typography>
             <Chat>
                 <MessagesContainer ref = { messageEl }>
@@ -72,12 +74,21 @@ const Messasger: FC = () => {
                     <CustomInput
                         type = 'text'
                         value = { message }
-                        onChange = { (event) =>     void setMessage(event.target.value) }>
+                        onChange = { (event) => {
+                            setMessage(event.target.value);
+                            clickTrue();
+                        }
+                        }>
                     </CustomInput>
-                    <Send onClick = { () =>  {
-                        createMessages({ text: message, username: stateUserSlice.username });
-                        setMessage('');
-                    } }>SEND
+                    <Send
+                        disabled = { isClicked }
+                        onClick = { () =>  {
+                            if (!isClicked) {
+                                createMessages({ text: message, username: stateUserSlice.username });
+                                setMessage('');
+                                clickFalse();
+                            }
+                        } }>SEND
                     </Send>
                 </Footer>
 
