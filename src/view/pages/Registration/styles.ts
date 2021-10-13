@@ -18,6 +18,16 @@ export const LoginBox = styled.div`
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
     border-radius: 10px;
 `;
+export const MessageBox = styled.div`
+    position: absolute;
+    top: 81%;
+    margin-top: 70px;
+    left: 50%;
+    width: 400px;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border-radius: 10px;
+`;
 
 export const UserName = styled.h2`  
 margin: 0 0 30px;
@@ -42,7 +52,8 @@ export const CustomInput = styled.input`
   left: 0;
   color: #03e9f4;
   font-size: 12px;
-  };
+};
+width:300px;
 `;
 
 export const CustomLabel = styled.label`
