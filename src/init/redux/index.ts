@@ -7,6 +7,7 @@ import errors from '../../bus/client/errors';
 import days from '../../bus/days/slice';
 import stateFilter from '../../bus/stateFilter/slice';
 import stateUserSlice from '../../bus/profile/slice';
+import  userSlice from '../../bus/messages/slices';
 
 // Middleware
 import { middleware, sagaMiddleware } from './middleware';
@@ -21,6 +22,7 @@ export const store = configureStore({
         days,
         stateFilter,
         stateUserSlice,
+        userSlice,
     },
     middleware,
     devTools: process.env.NODE_ENV !== 'production',

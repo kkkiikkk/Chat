@@ -12,6 +12,7 @@ const initialState = {
     isDaysFetching:     false,
     isLoggedIn:         false,
     isRegister:         false,
+    isMessagePost:      false,
 };
 
 // Types

@@ -57,16 +57,16 @@ export const CustomLabel = styled.label`
 `;
 
 export const CustomButton = styled.button`
+  behavior: 'smooth';
   position: relative;
+  width: 180px;
   display: inline-block;
-  padding: 10px 20px;
+  padding:  10px 20px;
   color: #03e9f4;
   font-size: 24px;
   text-decoration: none;
   text-transform: uppercase;
-  overflow: hidden;
   transition: .5s;
-  margin-top: 40px;
   letter-spacing: 4px;
   background: rgba(0,0,0,.5);
   box-shadow:0 15px 25px rgba(0,0,0,.6);

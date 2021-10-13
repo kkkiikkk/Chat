@@ -13,6 +13,9 @@ export function* refreshUser({ payload }: ReturnType<GetUserContract>) {
         fetcher:      API.getUser(payload),
         togglerType:  'isRegister',
         succesAction: stateUserActions.getUserName,
+        // errorSideEffect: () => {
+        //     userLocalStore.remoteRefreshToken();
+        // },
     });
     yield console.log(result);
 

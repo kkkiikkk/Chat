@@ -8,12 +8,12 @@ import { stateUserActions } from './slice';
 
 export const useUserName = () => {
     const dispatch = useDispatch();
-    const userName = (userName: string) => void dispatch(
-        stateUserActions.introducedUserName(userName),
+    const deleteUserName = () => void dispatch(
+        stateUserActions.introducedUserName(''),
     );
 
 
     return {
-        userName,
+        deleteUserName,
     };
 };

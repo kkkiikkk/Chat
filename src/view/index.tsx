@@ -11,7 +11,6 @@ import { refresh } from '../bus/profile/saga/action';
 // Hooks
 import { useLocalStorage } from '../tools/hooks';
 import { useTogglersRedux } from '../bus/client/togglers';
-import { useAuth } from '../bus/profile/saga';
 // Assets and Styles
 import { GlobalStyles, defaultTheme } from '../assets';
 import { AppContainer } from './styles';
@@ -24,9 +23,7 @@ export const App: FC = () => {
     const value = localStore.get('userId');
     const dispatch = useDispatch();
     useEffect(() => {
-        console.log('value');
-        console.log(value);
-        if (value.length !== 0) {
+        if (value) {
             dispatch(refresh(value));
         }
     }, [ dispatch ]);

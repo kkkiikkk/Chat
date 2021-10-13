@@ -1,14 +1,19 @@
 // Core
 import { useDispatch } from 'react-redux';
-import { refresh, register } from './action';
-import { useSelector } from '../../../tools/hooks';
+import {  register } from './action';
+import localStore from 'store';
+import { useTogglersRedux } from '../../client/togglers';
 
 export const useAuth = () => {
     const dispatch = useDispatch();
-    const { stateUserSlice } = useSelector((state) => state);
 
+    const { resetTogglersToInitial } = useTogglersRedux();
 
     return {
-        createUser: () => void dispatch(register(stateUserSlice.username)),
+        createUser: (inputName: string) => void dispatch(register(inputName)),
+        logOutUser: () => {
+            localStore.remove('userId');
+            resetTogglersToInitial();
+        },
     };
 };
