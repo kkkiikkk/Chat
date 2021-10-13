@@ -16,6 +16,7 @@ import { NavLink } from 'react-router-dom';
 import { useUserName } from '../../../bus/profile';
 import { useMessage } from '../../../bus/messages/saga';
 import { Message, Chat, MessagesContainer, CustomInput, Footer, Send } from './styles';
+import { KeyBoard } from '../../components/Keyboard';
 
 const initial = {
     username: '',
@@ -93,6 +94,7 @@ const Messasger: FC = () => {
                 </Footer>
 
             </Chat>
+            <KeyBoard />
         </>
 
     );
