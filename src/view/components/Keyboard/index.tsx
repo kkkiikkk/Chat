@@ -39,27 +39,36 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
             <ContainerKey
                 a = { 10 }
                 b = { 1 } >
-                {keyBoardButton.number.map((el: string) => {
+                {keyBoardButton.number.map((el: string, id: number) => {
                     return (
-                        <KeyButton onClick = { () => textMessages(el) }>{el}</KeyButton>
+                        <KeyButton
+                            key = { String(id) }
+                            onClick = { () => textMessages(el) }>{el}
+                        </KeyButton>
                     );
                 })}
             </ContainerKey>
             <ContainerKey
                 a = { 10 }
                 b = { 1 }>
-                {keyBoardButton.str1.map((el: string) => {
+                {keyBoardButton.str1.map((el: string, id: number) => {
                     return (
-                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                        <KeyButton
+                            key = { String(id) }
+                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                        </KeyButton>
                     );
                 })}
             </ContainerKey>
             <ContainerKey
                 a = { 9 }
                 b = { 2 }>
-                {keyBoardButton.str2.map((el: string) => {
+                {keyBoardButton.str2.map((el: string, id: number) => {
                     return (
-                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                        <KeyButton
+                            key = { String(id) }
+                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                        </KeyButton>
                     );
                 })}
             </ContainerKey>
@@ -74,9 +83,12 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                     }
                 } }>SHIFT
                 </KeyButton>
-                {keyBoardButton.str3.map((el: string) => {
+                {keyBoardButton.str3.map((el: string, id: number) => {
                     return (
-                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                        <KeyButton
+                            key = { String(id) }
+                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                        </KeyButton>
                     );
                 })}
                 <KeyButton onClick = { () => props.delete() }>BACKSPACE</KeyButton>
