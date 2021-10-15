@@ -1,12 +1,13 @@
 // Types
 import * as types from './types';
 
-export const setUsers: types.SetUserContract = (...args) => {
+export const fillMessage: types.FilMessageContract = (...args) => {
     const [ , action ] = args;
 
     return action.payload;
 };
 
-export const setMessages: types.SetMessagesContract = (state, action) => {
-    state.push(action.payload);
+export const createMessage: types.AddMessageContract = (state, action) => {
+    return [ action.payload, ...state ];
 };
+

@@ -1,19 +1,29 @@
+// Core
+import { put, select } from 'redux-saga/effects';
+import { isEqual } from 'lodash';
 
 
-// Redux
-import { userAction } from '../../slices';
+// Actions
+import { MessageAction } from '../../slices';
+
+// Types
+import {  Messages } from '../../types';
+
+
+// API
+import * as API from '../api/getMessages';
 
 // Tools
-import * as API from '../api/getMessages';
-import {  UserState } from '../../types';
 import { makeRequest } from '../../../../tools/utils';
+import { RootState } from '../../../../init';
 
 
-export function* fetchUsers() {
-    const result: UserState  = yield makeRequest<UserState>({
-        fetcher:      API.getMessages,
-        togglerType:  'isMessagesFetching',
-        succesAction: userAction.setUsers,
+export function* fillMessage() {
+    const { userSlice }: RootState = yield select((state) => state);
+    const newMessages: Messages = yield makeRequest<Messages>({
+        fetcher: API.fillMessage,
     });
-    yield console.log(result);
+    if (!isEqual(userSlice, newMessages)) {
+        yield put(MessageAction.setUsers(newMessages));
+    }
 }

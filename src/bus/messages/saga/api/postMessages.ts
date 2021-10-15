@@ -1,10 +1,12 @@
-// Types
-import { User } from '../../types';
+// Tools
 import { API_URL } from '../../../../init';
 
-type IPostUser = (messages: {text: string, username: string}) => () => Promise<User>
+// Types
+import { Message } from '../../types';
 
-export const postMessages: IPostUser = ({ text, username }) => async () => {
+type IPostUser = (messages: {text: string, username: string}) => () => Promise<Message>
+
+export const createMessage: IPostUser = ({ text, username }) => async () => {
     const response = await fetch(`${API_URL}/messages`, {
         method:  'POST',
         headers: {

@@ -1,14 +1,14 @@
-
+// Types
 import * as types from './types';
 
 export const register: types.PostUserContract = (payload) => ({
-    type: types.POST_USER,
+    type: types.REGISTER_USER,
     payload,
 
 });
 
 export const refresh: types.GetUserContract = (payload) => ({
-    type: types.GET_USER,
+    type: types.FILL_USER_PROFILE,
     payload,
 
 });

@@ -3,12 +3,12 @@ import  { useState } from 'react';
 
 export const useFilterStyle = () => {
     const [ isClicked, setIsClicked ] = useState(true);
-    const [ reset, setReset ] = useState(true);
+    const [ visible, setVisible ] = useState(false);
     const [ isReset, setIsReset ] = useState(true);
     const [ isDisable, setIsDisable ] = useState(false);
 
-    const clickResetTrue = () =>  setReset(false);
-    const clickResetFalse = () =>  setReset(true);
+    const clickVisibleTrue = () =>  setVisible(false);
+    const clickVisibleFalse = () =>  setVisible(true);
 
     const clickTrue = () =>  setIsClicked(false);
     const clickFalse = () =>  setIsClicked(true);
@@ -24,9 +24,9 @@ export const useFilterStyle = () => {
         clickFalse,
         clickTrue,
         isClicked,
-        reset,
-        clickResetTrue,
-        clickResetFalse,
+        visible,
+        clickVisibleTrue,
+        clickVisibleFalse,
         isReset,
         clickIsResetFalse,
         clickIsResetTrue,

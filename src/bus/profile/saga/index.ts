@@ -10,8 +10,8 @@ export const useAuth = () => {
     const { resetTogglersToInitial } = useTogglersRedux();
 
     return {
-        createUser: (inputName: string) => void dispatch(register(inputName)),
-        logOutUser: () => {
+        createUserProfile: (inputName: string) => void dispatch(register(inputName)),
+        logOutUser:        () => {
             localStore.remove('userId');
             resetTogglersToInitial();
         },

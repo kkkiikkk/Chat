@@ -10,7 +10,7 @@ import * as reducers from './reducers';
 const initialState: DaysState = [];
 
 export const daysSlice = createSlice({
-    name: 'days',
+    name: 'message',
     initialState,
     reducers,
 });

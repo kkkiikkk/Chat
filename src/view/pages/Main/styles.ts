@@ -12,23 +12,24 @@ border: 1px solid #ddd;
   width: 80%;
   word-wrap: break-word;
   float: ${(props: {userMessage: boolean}) => props.userMessage ? 'right' : 'left'};
-`;
+  `;
 
 export const Chat = styled.div`
       border: 1px solid #ddd;
-  width: 700px;
-  height: 428px;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-left: 50px;
-  margin: 0 auto;
-`;
+      width: 700px;
+      height: 428px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-left: 50px;
+      margin: 0 auto;
+
+      `;
 
 export const MessagesContainer = styled.div`
 height: 342px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: scroll;
   padding: 15px 10px;
+
 `;
 
 export const CustomInput = styled.input`
@@ -41,12 +42,14 @@ export const CustomInput = styled.input`
   &:focus {
   left: 0;
   color: #03e9f4;
+
   }
 `;
 
 export const Footer = styled.div`
   display: flex;
   border-top: 1px solid #ddd;
+
 
 `;
 
@@ -60,4 +63,27 @@ ${(props) => !props.disabled && css`
     cursor: pointer;
     };
 `};   
+
+`;
+
+export const StyleP = styled.p`
+
+font-size: 10px;
+`;
+
+
+export const ButtonKeyBoard = styled.div`
+
+margin: 0 auto;
+margin-top: 20px;
+background-color: #0080ff;
+border-radius: 4px;
+font-size: 20px;
+width: 300px;
+text-align: center;
+padding:5px;
+color: whitesmoke;
+&:hover{
+  cursor: pointer
+}
 `;

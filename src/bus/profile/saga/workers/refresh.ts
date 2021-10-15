@@ -1,23 +1,26 @@
+// Core
 import { put } from 'redux-saga/effects';
-import { stateUserActions } from '../../slice';
-import {  User } from '../../types';
 
+// Actions
+import { stateUserActions } from '../../slice';
+
+// Tools
 import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { togglerCreatorAction } from '../../../client/togglers';
+
+// API
 import * as API from '../api/refreshUser';
+
+// Types
 import { GetUserContract } from '../types';
-import { userLocalStore } from '../../../../tools/utils/userLocalStore';
+import {  User } from '../../types';
 
 export function* refreshUser({ payload }: ReturnType<GetUserContract>) {
     const result: User  = yield makeRequest<User>({
-        fetcher:      API.getUser(payload),
+        fetcher:      API.fillUser(payload),
         togglerType:  'isRegister',
         succesAction: stateUserActions.getUserName,
-        // errorSideEffect: () => {
-        //     userLocalStore.remoteRefreshToken();
-        // },
     });
-    yield console.log(result);
 
     if (result !== null) {
         yield put(togglerCreatorAction({

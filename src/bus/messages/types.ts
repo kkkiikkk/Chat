@@ -1,7 +1,7 @@
 // Core
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
-export type User = {
+export type Message = {
     _id: string,
     username: string,
     text:string,
@@ -9,8 +9,8 @@ export type User = {
     updatedAt: string
 }
 
-export type UserState = Array<User>
+export type Messages = Array<Message>
 
 
-export type SetUserContract = CaseReducer<UserState, PayloadAction<UserState>>
-export type SetMessagesContract = CaseReducer<UserState, PayloadAction<User>>
+export type FilMessageContract = CaseReducer<Messages, PayloadAction<Messages>>
+export type AddMessageContract = CaseReducer<Messages, PayloadAction<Message>>

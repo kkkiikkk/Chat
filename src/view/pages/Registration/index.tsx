@@ -8,18 +8,18 @@ import { useAuth } from '../../../bus/profile/saga';
 
 // Styles
 import {  GlobalStylesComponents } from './GlobalStyles';
-import { LoginBox, UserName, CustomInput, UserBox, CustomLabel, CustomButton, CustomLink } from './styles';
+import { LoginBox, UserName, CustomInput, UserBox, CustomLabel, CustomButton, CustomLink, CustomSection } from './styles';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 
 
 const Login:FC = () => {
-    const { createUser } = useAuth();
+    const { createUserProfile: createUser } = useAuth();
     const [ name, setName ] = useState('');
     const { clickFalse, clickTrue, isClicked } = useFilterStyle();
 
     return (
-        <>
+        <CustomSection>
             <GlobalStylesComponents />
             <LoginBox>
                 <UserName>Login</UserName>
@@ -52,7 +52,7 @@ const Login:FC = () => {
                     </CustomLink>
                 </form>
             </LoginBox>
-        </>
+        </CustomSection>
     );
 };
 

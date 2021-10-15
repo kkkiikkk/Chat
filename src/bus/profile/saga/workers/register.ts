@@ -1,20 +1,26 @@
+// Core
+import { put } from 'redux-saga/effects';
 
 // Tools
-import { stateUserActions } from '../../slice';
-import {  User } from '../../types';
-
-import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { userLocalStore } from '../../../../tools/utils';
-import { put } from 'redux-saga/effects';
+import { makeRequest } from '../../../../tools/utils/makeRequest';
+
+// Toggler
 import { togglerCreatorAction } from '../../../client/togglers';
+
+// API
 import * as API from '../api/postUser';
+
+// Actions
+import { stateUserActions } from '../../slice';
 
 // Types
 import { PostUserContract } from '../types';
+import {  User } from '../../types';
 
 export function* registerUser({ payload }: ReturnType<PostUserContract>) {
     const result: User | null = yield makeRequest<User>({
-        fetcher:           API.postUser(payload),
+        fetcher:           API.createUser(payload),
         togglerType:       'isRegister',
         succesAction:      stateUserActions.setUserName,
         successSideEffect: (result) => {
@@ -22,9 +28,7 @@ export function* registerUser({ payload }: ReturnType<PostUserContract>) {
                 userLocalStore.setRefreshToken(result._id);
             }
         },
-        errorSideEffect: () => { console.log('EROOORRRRRRRRRRRRRRRRRRRRRRRRRRR'); },
     });
-    yield console.log(result);
 
 
     if (result !== null) {

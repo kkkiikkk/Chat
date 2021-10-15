@@ -1,13 +1,13 @@
 
-export const POST_USER = 'POST_USER';
+export const REGISTER_USER = 'REAGISTER_USER';
 export type PostUserContract = (payload: string) => {
-    type: typeof POST_USER
+    type: typeof REGISTER_USER
     payload: string
 }
 
 
-export const GET_USER = 'GET_USER';
+export const FILL_USER_PROFILE = 'FILL_USER_PROFILE';
 export type GetUserContract = (payload: string) => {
-    type: typeof GET_USER
+    type: typeof FILL_USER_PROFILE
     payload: string
 }

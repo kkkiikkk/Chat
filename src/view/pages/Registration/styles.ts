@@ -68,6 +68,9 @@ export const CustomLabel = styled.label`
 `;
 
 export const CustomButton = styled.button<{disabled: boolean}>`
+@media (max-width: 768px) {
+    width: 30%;
+  }
   behavior: 'smooth';
   position: relative;
   width: 180px;
@@ -122,4 +125,7 @@ export const CustomButtonOut = styled.button`
 
 export const CustomLink = styled(NavLink)`
   text-decoration: none;
+`;
+export const CustomSection = styled.section`
+overflow-x: hidden;
 `;

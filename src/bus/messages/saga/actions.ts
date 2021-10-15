@@ -1,11 +1,12 @@
+// Types
 import * as types from './types';
 
 export const getMessages: types.GetMessagesContract = () => ({
-    type: types.GET_MESSAGES,
+    type: types.FILL_MESSAGE,
 });
 
 export const sendMessages: types.PostMessagesContract = (payload) => ({
-    type: types.POST_MESSAGES,
+    type: types.CREATE_MESSAGE,
     payload,
 
 });

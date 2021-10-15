@@ -1,7 +1,8 @@
+// Tolls
 import { API_URL } from '../../../../init';
 
 
-export const getMessages =  async () => {
+export const fillMessage =  async () => {
     const response = await fetch(`${API_URL}/messages`, {
         method:  'GET',
         headers: {

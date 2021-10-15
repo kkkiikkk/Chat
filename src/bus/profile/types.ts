@@ -10,5 +10,5 @@ export type Users = Array<User>
 
 export type SetUsers = CaseReducer<Users, PayloadAction<Users>>
 export type SetUser = CaseReducer<User, PayloadAction<User>>
-export type UserNameContract = CaseReducer<User, PayloadAction<User>>
-export type UserNameContract1 = CaseReducer<User, PayloadAction<string>>
+export type UserProfileContract = CaseReducer<User, PayloadAction<User>>
+export type UserNameContract = CaseReducer<User, PayloadAction<string>>

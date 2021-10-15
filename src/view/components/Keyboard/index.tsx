@@ -1,64 +1,101 @@
 // Core
 import React, { FC } from 'react';
 
-// Styles
-import { Container, ContainerKey, KeyButton } from './styles';
+// Hooks
+import { useTextMessage } from '../../../bus/client/textMessage';
+import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 
-export const KeyBoard:FC = () => {
+// Styles
+import { Container, ContainerKey, KeyButton, SpaceButton } from './styles';
+
+// Const
+import { keyBoardButton } from './keyBoard';
+
+ type IProps = {
+     onClick:Function,
+     createMessage: Function,
+     clearMessage: Function,
+     name: string,
+     text: string,
+     visible: boolean
+     delete: Function
+ }
+
+export const KeyBoard:FC<IProps> = (props: IProps) => {
+    const { textMessages } = useTextMessage();
+
+    const { clickFalse, clickTrue, isClicked } = useFilterStyle();
+
+    const clickShift = (botton: string) => {
+        const a = isClicked ? botton.toLowerCase() : botton.toUpperCase();
+
+        return a;
+    };
+
     return (
-        <Container>
-            <ContainerKey>
-                <KeyButton width = { 51 }>1</KeyButton>
-                <KeyButton width = { 51 }>2</KeyButton>
-                <KeyButton width = { 51 }>3</KeyButton>
-                <KeyButton width = { 51 }>4</KeyButton>
-                <KeyButton width = { 51 }>5</KeyButton>
-                <KeyButton width = { 51 }>6</KeyButton>
-                <KeyButton width = { 51 }>7</KeyButton>
-                <KeyButton width = { 51 }>8</KeyButton>
-                <KeyButton width = { 51 }>9</KeyButton>
-                <KeyButton width = { 51 }>0</KeyButton>
+        <Container
+            visible = { props.visible }
+            onClick = { () => props.onClick() }>
+            <ContainerKey
+                a = { 10 }
+                b = { 1 } >
+                {keyBoardButton.number.map((el: string) => {
+                    return (
+                        <KeyButton onClick = { () => textMessages(el) }>{el}</KeyButton>
+                    );
+                })}
             </ContainerKey>
-            <ContainerKey>
-                <KeyButton width = { 51 }>q</KeyButton>
-                <KeyButton width = { 51 }>w</KeyButton>
-                <KeyButton width = { 51 }>e</KeyButton>
-                <KeyButton width = { 51 }>r</KeyButton>
-                <KeyButton width = { 51 }>t</KeyButton>
-                <KeyButton width = { 51 }>y</KeyButton>
-                <KeyButton width = { 51 }>u</KeyButton>
-                <KeyButton width = { 51 }>i</KeyButton>
-                <KeyButton width = { 51 }>o</KeyButton>
-                <KeyButton width = { 51 }>p</KeyButton>
+            <ContainerKey
+                a = { 10 }
+                b = { 1 }>
+                {keyBoardButton.str1.map((el: string) => {
+                    return (
+                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                    );
+                })}
             </ContainerKey>
-            <ContainerKey>
-                <KeyButton width = { 56.7 }>a</KeyButton>
-                <KeyButton width = { 56.7 }>s</KeyButton>
-                <KeyButton width = { 56.7 }>d</KeyButton>
-                <KeyButton width = { 56.7 }>f</KeyButton>
-                <KeyButton width = { 56.7 }>g</KeyButton>
-                <KeyButton width = { 56.7 }>h</KeyButton>
-                <KeyButton width = { 56.7 }>j</KeyButton>
-                <KeyButton width = { 56.7 }>k</KeyButton>
-                <KeyButton width = { 56.7 }>l</KeyButton>
+            <ContainerKey
+                a = { 9 }
+                b = { 2 }>
+                {keyBoardButton.str2.map((el: string) => {
+                    return (
+                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                    );
+                })}
             </ContainerKey>
-            <ContainerKey>
-                <KeyButton width = { 54.7 }>SHIFT</KeyButton>
-                <KeyButton width = { 49 }>z</KeyButton>
-                <KeyButton width = { 49 }>x</KeyButton>
-                <KeyButton width = { 49 }>c</KeyButton>
-                <KeyButton width = { 49 }>v</KeyButton>
-                <KeyButton width = { 49 }>b</KeyButton>
-                <KeyButton width = { 49 }>n</KeyButton>
-                <KeyButton width = { 49 }>m</KeyButton>
-                <KeyButton width = { 113 }>BACKSPACE</KeyButton>
+            <ContainerKey
+                a = { 9 }
+                b = { 2 }>
+                <KeyButton onClick = { () => {
+                    if (isClicked) {
+                        clickTrue();
+                    } else {
+                        clickFalse();
+                    }
+                } }>SHIFT
+                </KeyButton>
+                {keyBoardButton.str3.map((el: string) => {
+                    return (
+                        <KeyButton onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}</KeyButton>
+                    );
+                })}
+                <KeyButton onClick = { () => props.delete() }>BACKSPACE</KeyButton>
             </ContainerKey>
-            <ContainerKey>
-                <KeyButton width = { 62 }>,</KeyButton>
-                <KeyButton width = { 62 }>En</KeyButton>
-                <KeyButton width = { 262 }>Space</KeyButton>
-                <KeyButton width = { 62 }>.</KeyButton>
-                <KeyButton width = { 62 }>Enter</KeyButton>
+            <ContainerKey
+                a = { 5 }
+                b = { 1 }>
+                <KeyButton onClick = { () => textMessages(',') }>,</KeyButton>
+                <KeyButton >En</KeyButton>
+                <SpaceButton onClick = { () => textMessages(' ') }>Space</SpaceButton>
+                <KeyButton onClick = { () => textMessages('.') }>.</KeyButton>
+                <KeyButton onClick = {  () => {
+                    if (props.text.length !== 0) {
+                        props.createMessage({ text: props.text, username: props.name });
+                        props.clearMessage();
+                    }
+                }
+                }>Enter
+                </KeyButton>
             </ContainerKey>
         </Container>
     );

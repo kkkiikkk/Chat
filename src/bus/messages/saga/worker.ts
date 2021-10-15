@@ -1,24 +1,25 @@
 // Core
 import { SagaIterator } from '@redux-saga/core';
 import { takeEvery, all, call } from 'redux-saga/effects';
-import { GET_MESSAGES, POST_MESSAGES } from './types';
 
+// Types
+import { FILL_MESSAGE, CREATE_MESSAGE } from './types';
 
 // Workers
 import {
-    fetchUsers,
+    fillMessage,
 
 } from './worker/getMessage';
 import { sendMessages } from './worker/postMessages';
-function* watchFetchUser(): SagaIterator {
-    yield takeEvery(GET_MESSAGES, fetchUsers);
+function* watchFillMessage(): SagaIterator {
+    yield takeEvery(FILL_MESSAGE, fillMessage);
 }
 
-function* watchPostMessage(): SagaIterator {
-    yield takeEvery(POST_MESSAGES, sendMessages);
+function* watchCreateMessage(): SagaIterator {
+    yield takeEvery(CREATE_MESSAGE, sendMessages);
 }
 
 
 export function* watchUsers(): SagaIterator {
-    yield all([ call(watchFetchUser), call(watchPostMessage) ]);
+    yield all([ call(watchFillMessage), call(watchCreateMessage) ]);
 }

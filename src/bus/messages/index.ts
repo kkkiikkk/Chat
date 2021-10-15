@@ -1,29 +1,36 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+
 // Core
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../tools/hooks';
 
-// Redux
+// Actions
 import { getMessages } from './saga/actions';
-import { useTogglersRedux } from '../client/togglers';
+
+
+let intervalId: ReturnType<typeof setInterval> | void = void 0;
 
 export const useUsers = () => {
     const dispatch = useDispatch();
-    const { togglersRedux } = useTogglersRedux();
 
     useEffect(() => {
+        if (intervalId) {
+            return void 0;
+        }
         dispatch(getMessages());
-        setInterval(() => {
-            if (togglersRedux.isLoggedIn) {
-                dispatch(getMessages());
+
+        intervalId = setInterval(() => {
+            dispatch(getMessages());
+        }
+        , 5000);
+
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
             }
-        }
-        , 2000);
-        if (!togglersRedux.isLoggedIn) {
-            clearInterval();
-        }
+        };
     }, []);
+
     const { userSlice } = useSelector((state) => state);
 
 

@@ -2,21 +2,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // Types
-import { UserState } from './types';
+import { Messages as MessagesType } from './types';
 
 // Reducers
-import { setMessages, setUsers } from './cases';
+import { createMessage, fillMessage } from './cases';
 
-const initialState: UserState = [];
+const initialState: MessagesType = [];
 
-export const userSlice = createSlice({
-    name:     'days',
+export const Messages = createSlice({
+    name:     'message',
     initialState,
     reducers: {
-        setUsers,
-        setMessages,
+        setUsers:    fillMessage,
+        setMessages: createMessage,
     },
 });
 
-export const userAction = userSlice.actions;
-export default userSlice.reducer;
+export const MessageAction = Messages.actions;
+export default Messages.reducer;
