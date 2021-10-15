@@ -20,6 +20,6 @@ function* watchCreateMessage(): SagaIterator {
 }
 
 
-export function* watchUsers(): SagaIterator {
+export function* watchMessages(): SagaIterator {
     yield all([ call(watchFillMessage), call(watchCreateMessage) ]);
 }
