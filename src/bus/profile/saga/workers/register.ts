@@ -16,11 +16,11 @@ import { stateUserActions } from '../../slice';
 
 // Types
 import { PostUserContract } from '../types';
-import {  User } from '../../types';
+import {  Profile } from '../../types';
 
-export function* registerUser({ payload }: ReturnType<PostUserContract>) {
-    const result: User | null = yield makeRequest<User>({
-        fetcher:           API.createUser(payload),
+export function* registerProfile({ payload }: ReturnType<PostUserContract>) {
+    const result: Profile | null = yield makeRequest<Profile>({
+        fetcher:           API.createProfile(payload),
         togglerType:       'isRegister',
         succesAction:      stateUserActions.setUserName,
         successSideEffect: (result) => {

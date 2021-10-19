@@ -13,11 +13,11 @@ import * as API from '../api/refreshUser';
 
 // Types
 import { GetUserContract } from '../types';
-import {  User } from '../../types';
+import {  Profile } from '../../types';
 
-export function* refreshUser({ payload }: ReturnType<GetUserContract>) {
-    const result: User  = yield makeRequest<User>({
-        fetcher:      API.fillUser(payload),
+export function* refreshProfile({ payload }: ReturnType<GetUserContract>) {
+    const result: Profile  = yield makeRequest<Profile>({
+        fetcher:      API.fillProfile(payload),
         togglerType:  'isRegister',
         succesAction: stateUserActions.getUserName,
     });

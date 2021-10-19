@@ -31,13 +31,7 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
 
 
     useEffect(() => {
-        document.addEventListener('keydown', (event) =>  {
-            if (en === false && !props.code.includes('Shift') && !props.code.includes('Alt')) {
-                setEn(true);
-                props.codeButton(event.key);
-            }
-            props.codeButton(event.key);
-        });
+        document.addEventListener('keydown', (event) =>  props.codeButton(event.key));
         document.addEventListener('keyup', (event) => props.deleteButtonCode(event.key));
 
         return () => {

@@ -1,14 +1,14 @@
 // Core
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
-export type User = {
+export type Profile = {
     _id: string,
     username: string
 }
-export type Users = Array<User>
+export type ProfileState = Array<Profile>
 
 
-export type SetUsers = CaseReducer<Users, PayloadAction<Users>>
-export type SetUser = CaseReducer<User, PayloadAction<User>>
-export type UserProfileContract = CaseReducer<User, PayloadAction<User>>
-export type UserNameContract = CaseReducer<User, PayloadAction<string>>
+export type SetUsers = CaseReducer<ProfileState, PayloadAction<ProfileState>>
+export type SetUser = CaseReducer<Profile, PayloadAction<Profile>>
+export type UserProfileContract = CaseReducer<Profile, PayloadAction<Profile>>
+export type UserNameContract = CaseReducer<Profile, PayloadAction<string>>

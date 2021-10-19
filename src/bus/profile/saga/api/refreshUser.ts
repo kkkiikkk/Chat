@@ -1,9 +1,9 @@
 import { API_URL } from '../../../../init';
-import { User } from '../../types';
+import { Profile } from '../../types';
 
-type IPostUser = (_id: string) => () => Promise<User>
+type IPostUser = (_id: string) => () => Promise<Profile>
 
-export const fillUser: IPostUser = (_id) => async () => {
+export const fillProfile: IPostUser = (_id) => async () => {
     const response = await fetch(`${API_URL}/users/refresh/${_id}`, {
         method:  'GET',
         headers: {

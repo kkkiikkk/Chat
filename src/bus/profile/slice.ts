@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 // Types
-import { User } from './types';
+import { Profile } from './types';
 
 // Reducers
 import {  setUserName, introducedUserName, getUserName } from './cases';
 
 
-const initialState: User = {
+const initialState: Profile = {
     _id:      '',
     username: '',
 };

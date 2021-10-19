@@ -7,17 +7,17 @@ import { REGISTER_USER,  FILL_USER_PROFILE } from './types';
 
 // Workers
 import {
-    registerUser,
+    registerProfile,
 
 } from './workers/register';
-import { refreshUser } from './workers/refresh';
+import { refreshProfile } from './workers/refresh';
 
 function* watchRegisterUser(): SagaIterator {
-    yield takeEvery(REGISTER_USER, registerUser);
+    yield takeEvery(REGISTER_USER, registerProfile);
 }
 
 function* watchRefreshUser(): SagaIterator {
-    yield takeEvery(FILL_USER_PROFILE, refreshUser);
+    yield takeEvery(FILL_USER_PROFILE, refreshProfile);
 }
 
 export function* watchUser(): SagaIterator {

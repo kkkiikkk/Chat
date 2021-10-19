@@ -3,11 +3,11 @@
 import { API_URL } from '../../../../init';
 
 // Types
-import { User } from '../../types';
+import { Profile } from '../../types';
 
-type IPostUser = (username: string) => () => Promise<User>
+type IPostUser = (username: string) => () => Promise<Profile>
 
-export const createUser: IPostUser = (username) => async () => {
+export const createProfile: IPostUser = (username) => async () => {
     const response = await fetch(`${API_URL}/users/register`, {
         method:  'POST',
         headers: {

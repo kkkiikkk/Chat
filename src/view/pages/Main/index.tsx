@@ -68,11 +68,13 @@ const Messasger: FC = () => {
                         <DeleteButton
                             onClick = { () => deleteMessage({ _id }) }>Delete
                         </DeleteButton>
-                        <DeleteButton onClick = { () => {
-                            textMessages(text);
-                            clickIsResetTrue();
-                            setId({ _id, text });
-                        } }>Update </DeleteButton>
+                        <DeleteButton
+                            disabled = { !isReset }
+                            onClick = { () => {
+                                textMessages(text);
+                                clickIsResetTrue();
+                                setId({ _id, text });
+                            } }>Update </DeleteButton>
                     </> : null}
                 <StyleP>{username}</StyleP>
                 <p>{text}</p>
