@@ -5,7 +5,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Messages as MessagesType } from './types';
 
 // Reducers
-import { createMessage, fillMessage } from './cases';
+import { createMessage, fillMessage, deleteMessage, updateMessage  } from './cases';
 
 const initialState: MessagesType = [];
 
@@ -13,8 +13,10 @@ export const Messages = createSlice({
     name:     'message',
     initialState,
     reducers: {
-        setUsers:    fillMessage,
-        setMessages: createMessage,
+        setUsers:      fillMessage,
+        setMessages:   createMessage,
+        deleteMesage:  deleteMessage,
+        updateMessage: updateMessage,
     },
 });
 

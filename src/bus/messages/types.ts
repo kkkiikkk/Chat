@@ -14,3 +14,5 @@ export type Messages = Array<Message>
 
 export type FilMessageContract = CaseReducer<Messages, PayloadAction<Messages>>
 export type AddMessageContract = CaseReducer<Messages, PayloadAction<Message>>
+export type DeleteMEssage = CaseReducer<Messages, PayloadAction<boolean>>
+export type UpdateMessageContract = CaseReducer<Messages, PayloadAction<Message>>

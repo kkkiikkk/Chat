@@ -1,5 +1,6 @@
+
 // Core
-import React, { FC } from 'react';
+import React, { FC, useEffect,  useState } from 'react';
 
 // Hooks
 import { useTextMessage } from '../../../bus/client/textMessage';
@@ -19,15 +20,41 @@ import { keyBoardButton } from './keyBoard';
      text: string,
      visible: boolean
      delete: Function
+     code: string[],
+     codeButton: Function,
+     deleteButtonCode: Function,
  }
 
+
 export const KeyBoard:FC<IProps> = (props: IProps) => {
+    const [ en, setEn ] = useState(false);
+
+
+    useEffect(() => {
+        document.addEventListener('keydown', (event) =>  {
+            if (en === false && !props.code.includes('Shift') && !props.code.includes('Alt')) {
+                setEn(true);
+                props.codeButton(event.key);
+            }
+            props.codeButton(event.key);
+        });
+        document.addEventListener('keyup', (event) => props.deleteButtonCode(event.key));
+
+        return () => {
+            document.addEventListener('keydown', () =>  void 0);
+            document.addEventListener('keyup', () => void 0);
+        };
+    }, []);
+
+
     const { textMessages } = useTextMessage();
 
     const { clickFalse, clickTrue, isClicked } = useFilterStyle();
 
     const clickShift = (botton: string) => {
-        const a = isClicked ? botton.toLowerCase() : botton.toUpperCase();
+        const a =  isClicked
+            ? botton.toLowerCase() : botton.toUpperCase();
+
 
         return a;
     };
@@ -39,76 +66,104 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
             <ContainerKey
                 a = { 10 }
                 b = { 1 } >
-                {keyBoardButton.number.map((el: string, id: number) => {
+                {keyBoardButton.firstLine.map(({ keyRuValue, keyEnValue }, id: number) => {
                     return (
                         <KeyButton
                             key = { String(id) }
-                            onClick = { () => textMessages(el) }>{el}
+                            visible = {  props.code.includes(en && keyEnValue ? keyEnValue : keyRuValue)  }
+                            onClick = { () =>  textMessages(en && keyEnValue ? keyEnValue : keyRuValue) }>
+                            {clickShift(en && keyEnValue ?  keyEnValue : keyRuValue)}
                         </KeyButton>
                     );
                 })}
             </ContainerKey>
             <ContainerKey
-                a = { 10 }
+                a = { en ?  10 : 11 }
                 b = { 1 }>
-                {keyBoardButton.str1.map((el: string, id: number) => {
+                {keyBoardButton.sescondLine[ en ? 1 : 0 ].map((keyValue, id: number) => {
                     return (
                         <KeyButton
                             key = { String(id) }
-                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                            visible = {  props.code.includes(keyValue)  }
+                            onClick = { () =>  textMessages(keyValue) }>
+                            {clickShift(keyValue)}
                         </KeyButton>
                     );
                 })}
             </ContainerKey>
             <ContainerKey
-                a = { 9 }
+                a = { en ?  9 : 11 }
                 b = { 2 }>
-                {keyBoardButton.str2.map((el: string, id: number) => {
+                {keyBoardButton.tescondLine[ en ? 1 : 0 ].map((keyValue, id: number) => {
                     return (
                         <KeyButton
                             key = { String(id) }
-                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                            visible = {  props.code.includes(keyValue)  }
+                            onClick = { () =>  textMessages(keyValue) }>
+                            {clickShift(keyValue)}
                         </KeyButton>
                     );
                 })}
             </ContainerKey>
             <ContainerKey
-                a = { 9 }
+                a = { en ?  9 : 11 }
                 b = { 2 }>
-                <KeyButton onClick = { () => {
-                    if (isClicked) {
-                        clickTrue();
-                    } else {
-                        clickFalse();
-                    }
-                } }>SHIFT
+                <KeyButton
+                    visible = { props.code.includes('Shift') }
+                    onClick = { () => {
+                        if (isClicked) {
+                            clickTrue();
+                        } else {
+                            clickFalse();
+                        }
+                    } }>SHIFT
                 </KeyButton>
-                {keyBoardButton.str3.map((el: string, id: number) => {
+                {keyBoardButton.tescosndLine[ en ? 1 : 0 ].map((keyValue, id: number) => {
                     return (
                         <KeyButton
                             key = { String(id) }
-                            onClick = { () => textMessages(clickShift(el)) } >{clickShift(el)}
+                            visible = {  props.code.includes(keyValue)  }
+                            onClick = { () =>  textMessages(keyValue) }>
+                            {clickShift(keyValue)}
                         </KeyButton>
                     );
                 })}
-                <KeyButton onClick = { () => props.delete() }>BACKSPACE</KeyButton>
+                <KeyButton
+                    visible = { props.code.includes('Backspace') }
+                    onClick = { () => props.delete() }>BACKSPACE
+                </KeyButton>
             </ContainerKey>
             <ContainerKey
                 a = { 5 }
                 b = { 1 }>
-                <KeyButton onClick = { () => textMessages(',') }>,</KeyButton>
-                <KeyButton >En</KeyButton>
-                <SpaceButton onClick = { () => textMessages(' ') }>Space</SpaceButton>
-                <KeyButton onClick = { () => textMessages('.') }>.</KeyButton>
-                <KeyButton onClick = {  () => {
-                    if (props.text.length !== 0) {
-                        props.createMessage({ text: props.text, username: props.name });
-                        props.clearMessage();
+                <KeyButton
+                    visible = { props.code.includes(',') }
+                    onClick = { () => textMessages(',') }>,
+                </KeyButton>
+                <KeyButton
+                    visible = { props.code.includes('') }
+                    onClick = { () => en ? setEn(false) : setEn(true) }>En
+                </KeyButton>
+                <SpaceButton
+                    visible = { props.code.includes(' ') }
+                    onClick = { () => textMessages(' ') }>Space
+                </SpaceButton>
+                <KeyButton
+                    visible = { props.code.includes('.') }
+                    onClick = { () => textMessages('.') }>.
+                </KeyButton>
+                <KeyButton
+                    visible = { props.code.includes('Enter') }
+                    onClick = {  () => {
+                        if (props.text.length !== 0) {
+                            props.createMessage({ text: props.text, username: props.name });
+                            props.clearMessage();
+                        }
                     }
-                }
-                }>Enter
+                    }>Enter
                 </KeyButton>
             </ContainerKey>
         </Container>
     );
 };
+

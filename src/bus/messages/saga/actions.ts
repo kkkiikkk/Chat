@@ -10,3 +10,13 @@ export const sendMessages: types.PostMessagesContract = (payload) => ({
     payload,
 
 });
+export const deleteMessage: types.DeleteMessageContract = (payload) => ({
+    type: types.DELETE_MESSAGE,
+    payload,
+
+});
+export const updateMessage: types.UpdateMessageContract = (payload) => ({
+    type: types.UPDATE_MESSAGE,
+    payload,
+});
+

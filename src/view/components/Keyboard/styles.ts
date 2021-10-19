@@ -1,5 +1,5 @@
 // Core
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 export const Container = styled.div<{visible: boolean}>`
@@ -7,6 +7,9 @@ export const Container = styled.div<{visible: boolean}>`
     margin: 0 auto;
     margin-top:40px;
     display: ${(props) => props.visible ? 'block' : 'none'};
+    @media screen and (max-width: 500px){
+        width: 300px;
+    }
 `;
 
 export const ContainerKey = styled.div<{a: number, b: number}>`
@@ -14,7 +17,7 @@ export const ContainerKey = styled.div<{a: number, b: number}>`
     grid-template-columns: repeat(${(props) => props.a  }, ${(props) => props.b + 'fr'});
 `;
 
-export const KeyButton = styled.button`
+export const KeyButton = styled.button<{visible: boolean}>`
     display: grid;
     place-items: center;
     border-radius: 4px;
@@ -26,10 +29,13 @@ export const KeyButton = styled.button`
     &:active{
         background-color: #03e9f4;
     }
+    ${(props) => props.visible && css`
+        background-color: #03e9f4;
+    `};
 `;
 
 
-export const SpaceButton = styled.button`
+export const SpaceButton = styled.button<{visible: boolean}>`
 display: grid;
     place-items: center;
     border-radius: 4px;
@@ -40,5 +46,11 @@ display: grid;
     cursor: pointer;
     &:active{
         background-color: #03e9f4;
+    }
+    ${(props) => props.visible && css`
+        background-color: #03e9f4;
+    `};
+    @media screen and (max-width: 600px){
+        width: 120px;
     }
 `;

@@ -29,8 +29,10 @@ const Login:FC = () => {
                             name = 'userName'
                             value = { name }
                             onChange = { (event) => {
-                                setName(event.target.value);
-                                clickTrue();
+                                if (event.target.value.length !== 0) {
+                                    setName(event.target.value);
+                                    clickTrue();
+                                }
                             }
                             }>
                         </CustomInput>

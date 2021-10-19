@@ -22,7 +22,12 @@ export const Chat = styled.div`
       overflow: hidden;
       margin-left: 50px;
       margin: 0 auto;
-
+      @media screen and (max-width: 710px){
+        width: 400px
+      }
+      @media screen and (max-width: 420px){
+        width: 200px
+      }
       `;
 
 export const MessagesContainer = styled.div`
@@ -35,7 +40,7 @@ height: 342px;
 export const CustomInput = styled.input`
 
   padding: 10px;
-  width: 620px;
+  width: 90%;
   border: 0;
   margin-right: 0px;
   font-size:30px;
@@ -86,4 +91,11 @@ color: whitesmoke;
 &:hover{
   cursor: pointer
 }
+`;
+
+
+export const DeleteButton = styled.button`
+  background-color: #0080ff;
+  width: 60px;
+  color: darkblue;
 `;
