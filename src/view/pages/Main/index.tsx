@@ -97,7 +97,7 @@ const Messasger: FC = () => {
                     Log Out
                 </CustomButtonOut>
             </NavLink>
-            <Typography sx = {{ fontSize: '40px', textAlign: 'center' }}>Helo User: {userName}</Typography>
+            <Typography sx = {{ fontSize: '40px', textAlign: 'center' }}>Hello User: {userName}</Typography>
             <Chat>
                 <MessagesContainer ref = { messageEl }>
                     {p}
