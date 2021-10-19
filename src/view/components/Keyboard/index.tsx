@@ -27,7 +27,7 @@ import { keyBoardButton } from './keyBoard';
 
 
 export const KeyBoard:FC<IProps> = (props: IProps) => {
-    const [ en, setEn ] = useState(false);
+    const [ en, setEn ] = useState(true);
 
 
     useEffect(() => {
