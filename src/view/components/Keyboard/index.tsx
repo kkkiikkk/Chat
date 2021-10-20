@@ -79,7 +79,7 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                         <KeyButton
                             key = { String(id) }
                             visible = {  props.code.includes(keyValue)  }
-                            onClick = { () =>  textMessages(keyValue) }>
+                            onClick = { () =>  textMessages(clickShift(keyValue)) }>
                             {clickShift(keyValue)}
                         </KeyButton>
                     );
@@ -93,7 +93,7 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                         <KeyButton
                             key = { String(id) }
                             visible = {  props.code.includes(keyValue)  }
-                            onClick = { () =>  textMessages(keyValue) }>
+                            onClick = { () =>  textMessages(clickShift(keyValue)) }>
                             {clickShift(keyValue)}
                         </KeyButton>
                     );
@@ -117,7 +117,7 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                         <KeyButton
                             key = { String(id) }
                             visible = {  props.code.includes(keyValue)  }
-                            onClick = { () =>  textMessages(keyValue) }>
+                            onClick = { () =>  textMessages(clickShift(keyValue)) }>
                             {clickShift(keyValue)}
                         </KeyButton>
                     );
