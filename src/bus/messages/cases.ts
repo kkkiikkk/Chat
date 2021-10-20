@@ -22,7 +22,5 @@ export const updateMessage: types.UpdateMessageContract = (state, action) => {
     if (index !== -1) {
         state[ index ] = action.payload;
     }
-
-    return state;
 };
 
