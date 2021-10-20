@@ -17,12 +17,11 @@ export const deleteMessage: types.DeleteMEssage = (state, action) => {
     }
 };
 export const updateMessage: types.UpdateMessageContract = (state, action) => {
-    state.map(({ text,   updatedAt, _id }) => {
-        if (_id === action.payload._id) {
-            text = action.payload.text;
-            updatedAt = action.payload.updatedAt;
-        }
-    });
+    const index = state.indexOf(action.payload);
+
+    if (index !== -1) {
+        state[ index ] = action.payload;
+    }
 
     return state;
 };
