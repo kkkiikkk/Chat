@@ -31,7 +31,12 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
 
 
     useEffect(() => {
-        document.addEventListener('keydown', (event) =>  props.codeButton(event.key));
+        document.addEventListener('keydown', (event) =>  {
+            if (event.key === 'Backspace') {
+                props.delete();
+            }
+            props.codeButton(event.key);
+        });
         document.addEventListener('keyup', (event) => props.deleteButtonCode(event.key));
 
         return () => {
