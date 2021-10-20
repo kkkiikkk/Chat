@@ -57,7 +57,7 @@ const Messasger: FC = () => {
         }
     }, [ users[ 0 ]?._id ]);
 
-    const p = users.map(({ text, _id, username, createdAt, updatedAt }) => {
+    const messageJSX = users.map(({ text, _id, username, createdAt, updatedAt }) => {
         return (
 
             <Message
@@ -100,7 +100,7 @@ const Messasger: FC = () => {
             <Typography sx = {{ fontSize: '40px', textAlign: 'center' }}>Hello User: {userName}</Typography>
             <Chat>
                 <MessagesContainer ref = { messageEl }>
-                    {p}
+                    {messageJSX}
                 </MessagesContainer>
                 <Footer>
                     <CustomInput
