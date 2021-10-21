@@ -66,6 +66,7 @@ const Messasger: FC = () => {
                 {userName === username
                     ? <>
                         <DeleteButton
+                            disabled = { !isReset }
                             onClick = { () => deleteMessage({ _id }) }>Delete
                         </DeleteButton>
                         <DeleteButton
