@@ -1,6 +1,6 @@
 
 // Core
-import React, { FC, useEffect,  useState } from 'react';
+import React, { FC, useEffect,  useState, MutableRefObject } from 'react';
 
 // Hooks
 import { useTextMessage } from '../../../bus/client/textMessage';
@@ -16,13 +16,14 @@ import { keyBoardButton } from './keyBoard';
      onClick:Function,
      createMessage: Function,
      clearMessage: Function,
-     name: string,
+     name: string | null,
      text: string,
      visible: boolean
      delete: Function
      code: number[],
      codeButton: Function,
      deleteButtonCode: Function,
+     focusEL:   MutableRefObject<HTMLInputElement | null>
  }
 
 
@@ -35,9 +36,13 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
             if (event.keyCode === 8) {
                 props.delete();
             }
+            props.focusEL?.current?.focus();
             props.codeButton(event.keyCode);
         });
-        document.addEventListener('keyup', (event) => props.deleteButtonCode(event.keyCode));
+        document.addEventListener('keyup', (event) => {
+            props.focusEL?.current?.focus();
+            props.deleteButtonCode(event.keyCode);
+        });
 
         return () => {
             document.addEventListener('keydown', () =>  void 0);
@@ -154,7 +159,7 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                 <KeyButton
                     visible = { props.code.includes(13) }
                     onClick = {  () => {
-                        if (props.text.length !== 0) {
+                        if (props.text.length !== 0 && props.name !== null) {
                             props.createMessage({ text: props.text, username: props.name });
                             props.clearMessage();
                         }

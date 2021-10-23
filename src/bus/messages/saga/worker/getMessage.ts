@@ -1,5 +1,5 @@
 // Core
-import { put, select } from 'redux-saga/effects';
+import { put, select, delay } from 'redux-saga/effects';
 import { isEqual } from 'lodash';
 
 
@@ -23,6 +23,7 @@ export function* fillMessage() {
     const newMessages: Messages = yield makeRequest<Messages>({
         fetcher: API.fillMessage,
     });
+    delay(500);
     if (!isEqual(userSlice, newMessages)) {
         yield put(MessageAction.setUsers(newMessages));
     }

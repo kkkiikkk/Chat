@@ -2,8 +2,8 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 
 export type Profile = {
-    _id: string,
-    username: string
+    _id: string | null,
+    username: string | null
 }
 export type ProfileState = Array<Profile>
 

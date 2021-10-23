@@ -1,3 +1,5 @@
+// Core
+import { delay } from 'redux-saga/effects';
 
 // Tools
 import { makeRequest } from '../../../../tools/utils/makeRequest';
@@ -17,4 +19,5 @@ export function* sendMessages(payload : ReturnType<PostMessagesContract>) {
         fetcher:      API.createMessage(payload.payload),
         succesAction: MessageAction.setMessages,
     });
+    delay(500);
 }

@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // Reducers
 import togglers from '../../bus/client/togglers';
 import errors from '../../bus/client/errors';
-import stateUserSlice from '../../bus/profile/slice';
+import stateProfile from '../../bus/profile/slice';
 import  Messages from '../../bus/messages/slices';
 import textMessage  from '../../bus/client/textMessage/slices';
 import  buttonCodeMessages from '../../bus/client/keyBoard/slices';
@@ -20,8 +20,8 @@ export const store = configureStore({
     reducer: {
         togglers,
         errors,
-        stateUserSlice,
-        userSlice: Messages,
+        stateUserSlice: stateProfile,
+        userSlice:      Messages,
         textMessage,
         buttonCodeMessages,
     },

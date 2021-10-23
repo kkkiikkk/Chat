@@ -1,3 +1,5 @@
+// Core
+import { delay } from 'redux-saga/effects';
 
 // Tools
 import { makeRequest } from '../../../../tools/utils/makeRequest';
@@ -16,4 +18,5 @@ export function* deleteMessage(payload : ReturnType<DeleteMessageContract>) {
         fetcher:      API.deleteMessage(payload.payload),
         succesAction: MessageAction.deleteMesage,
     });
+    yield delay(500);
 }

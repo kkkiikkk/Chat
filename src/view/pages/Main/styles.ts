@@ -71,6 +71,17 @@ ${(props) => !props.disabled && css`
 
 `;
 
+export const Cancel = styled.div<{visible: boolean}>`
+text-align:center;
+background-color: #00cec9;
+font-size: 30px;
+padding:8px;
+margin:0;
+display: ${(props) => props.visible ? 'block' : 'none'};
+cursor: ${(props) => props.visible ? 'pointer' : 'none'};
+
+`;
+
 export const StyleP = styled.p`
 
 font-size: 10px;

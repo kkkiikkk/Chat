@@ -3,7 +3,7 @@ import { SagaIterator } from '@redux-saga/core';
 import { takeEvery, all, call } from 'redux-saga/effects';
 
 // Types
-import { REGISTER_USER,  FILL_USER_PROFILE } from './types';
+import { REGISTER_PROFILE,  REFRESH_PROFILE } from './types';
 
 // Workers
 import {
@@ -12,14 +12,14 @@ import {
 } from './workers/register';
 import { refreshProfile } from './workers/refresh';
 
-function* watchRegisterUser(): SagaIterator {
-    yield takeEvery(REGISTER_USER, registerProfile);
+function* watchRegisterProfile(): SagaIterator {
+    yield takeEvery(REGISTER_PROFILE, registerProfile);
 }
 
-function* watchRefreshUser(): SagaIterator {
-    yield takeEvery(FILL_USER_PROFILE, refreshProfile);
+function* watchRefreshProfile(): SagaIterator {
+    yield takeEvery(REFRESH_PROFILE, refreshProfile);
 }
 
-export function* watchUser(): SagaIterator {
-    yield all([ call(watchRegisterUser), call(watchRefreshUser) ]);
+export function* watchProfile(): SagaIterator {
+    yield all([ call(watchRegisterProfile), call(watchRefreshProfile) ]);
 }

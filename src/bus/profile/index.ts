@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 
 // Action
-import { stateUserActions } from './slice';
+import { stateProfileActions } from './slice';
 
 // Hooks
 import { useSelector } from '../../tools/hooks';
@@ -13,7 +13,7 @@ export const useUserProfile = () => {
     const { stateUserSlice } = useSelector((state) => state);
 
     const deleteUserName = () => void dispatch(
-        stateUserActions.introducedUserName(''),
+        stateProfileActions.introducedUserName(''),
     );
 
     const userName = stateUserSlice.username;

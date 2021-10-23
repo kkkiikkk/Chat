@@ -21,7 +21,7 @@ import { KeyBoard } from '../../components/Keyboard';
 // Styles
 import { GlobalStylesComponents } from '../Registration/GlobalStyles';
 import { CustomButtonOut, CustomSection } from '../Registration/styles';
-import { Message, Chat, MessagesContainer, CustomInput, Footer, Send, StyleP, ButtonKeyBoard, DeleteButton } from './styles';
+import { Message, Chat, MessagesContainer, CustomInput, Footer, Send, StyleP, ButtonKeyBoard, DeleteButton, Cancel } from './styles';
 
 
 const Messasger: FC = () => {
@@ -45,9 +45,11 @@ const Messasger: FC = () => {
     const {  clickTrue,  clickVisibleFalse, clickVisibleTrue,
         visible, clickIsResetFalse,
         clickIsResetTrue,
-        isReset  } = useFilterStyle();
+        isReset, clickIsDisableFalse,  clickIsDisableTrue, isDisable    } = useFilterStyle();
 
     const messageEl = useRef<HTMLDivElement | null>(null);
+
+    const inputEL = useRef<HTMLInputElement | null>(null);
 
     useLayoutEffect(() => {
         if (messageEl.current) {
@@ -67,15 +69,20 @@ const Messasger: FC = () => {
                     ? <>
                         <DeleteButton
                             disabled = { !isReset }
-                            onClick = { () => deleteMessage({ _id }) }>Delete
+                            onClick = { () => {
+                                // eslint-disable-next-line no-alert
+                                confirm('Вы действитель хотите удалить сообщение?')
+                                    ? deleteMessage({ _id }) : null;
+                            } }>Delete
                         </DeleteButton>
                         <DeleteButton
                             disabled = { !isReset }
-                            onClick = { () => {
+                            onClick = {   () => {
                                 textMessages(text);
                                 clickIsResetTrue();
                                 setId({ _id, text });
-                            } }>Update </DeleteButton>
+                                clickIsDisableFalse();
+                            }  }>Update</DeleteButton>
                     </> : null}
                 <StyleP>{username}</StyleP>
                 <p>{text}</p>
@@ -104,7 +111,15 @@ const Messasger: FC = () => {
                     {messageJSX}
                 </MessagesContainer>
                 <Footer>
+                    <Cancel
+                        visible = { isDisable }
+                        onClick = { () => {
+                            clearMessages();
+                            clickIsResetFalse();
+                            clickIsDisableTrue();
+                        } }>X</Cancel>
                     <CustomInput
+                        ref = { inputEL }
                         type = 'text'
                         value = { text }
                         onChange = { (event) => {
@@ -115,7 +130,7 @@ const Messasger: FC = () => {
                         }
                         onKeyPress = { (event) => {
                             if (event.key === 'Enter') {
-                                if (text.length !== 0) {
+                                if (text.length !== 0 && userName !== null) {
                                     isReset ? createMessages({ text: text, username: userName })
                                         :  updateMessage({ text: text, _id: ids._id });
                                     clickIsResetFalse();
@@ -127,13 +142,14 @@ const Messasger: FC = () => {
                     <Send
                         disabled = { text.length === 0 }
                         onClick = { () =>  {
-                            if (text.length !== 0) {
+                            if (text.length !== 0 && userName !== null) {
                                 isReset ? createMessages({ text: text, username: userName })
                                     :  updateMessage({ text: text, _id: ids._id });
                                 clickIsResetFalse();
                                 clearMessages();
+                                clickIsDisableTrue();
                             }
-                        } }>SEND
+                        } }>{isReset ? 'SEND' : 'UPDATE'}
                     </Send>
                 </Footer>
 
@@ -154,6 +170,7 @@ const Messasger: FC = () => {
                 createMessage = {  createMessages }
                 delete = { deleteElements }
                 deleteButtonCode = { deleteButtonCode }
+                focusEL = { inputEL }
                 name = { userName }
                 text = { text }
                 visible = { visible }

@@ -1,13 +1,13 @@
 
-export const REGISTER_USER = 'REAGISTER_USER';
-export type PostUserContract = (payload: string) => {
-    type: typeof REGISTER_USER
+export const REGISTER_PROFILE = 'REAGISTER_USER';
+export type PostRegisterContract = (payload: string) => {
+    type: typeof REGISTER_PROFILE
     payload: string
 }
 
 
-export const FILL_USER_PROFILE = 'FILL_USER_PROFILE';
-export type GetUserContract = (payload: string) => {
-    type: typeof FILL_USER_PROFILE
+export const REFRESH_PROFILE = 'FILL_USER_PROFILE';
+export type GetRefreshContract = (payload: string) => {
+    type: typeof REFRESH_PROFILE
     payload: string
 }

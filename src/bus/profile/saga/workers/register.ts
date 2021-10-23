@@ -12,17 +12,17 @@ import { togglerCreatorAction } from '../../../client/togglers';
 import * as API from '../api/postUser';
 
 // Actions
-import { stateUserActions } from '../../slice';
+import { stateProfileActions } from '../../slice';
 
 // Types
-import { PostUserContract } from '../types';
+import { PostRegisterContract } from '../types';
 import {  Profile } from '../../types';
 
-export function* registerProfile({ payload }: ReturnType<PostUserContract>) {
+export function* registerProfile({ payload }: ReturnType<PostRegisterContract>) {
     const result: Profile | null = yield makeRequest<Profile>({
-        fetcher:           API.createProfile(payload),
+        fetcher:           API.registerProfile(payload),
         togglerType:       'isRegister',
-        succesAction:      stateUserActions.setUserName,
+        succesAction:      stateProfileActions.setUserName,
         successSideEffect: (result) => {
             if (result._id) {
                 userLocalStore.setRefreshToken(result._id);

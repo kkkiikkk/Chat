@@ -7,7 +7,7 @@ import { Profile } from '../../types';
 
 type IPostUser = (username: string) => () => Promise<Profile>
 
-export const createProfile: IPostUser = (username) => async () => {
+export const registerProfile: IPostUser = (username) => async () => {
     const response = await fetch(`${API_URL}/users/register`, {
         method:  'POST',
         headers: {

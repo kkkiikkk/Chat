@@ -2,7 +2,7 @@
 import { put } from 'redux-saga/effects';
 
 // Actions
-import { stateUserActions } from '../../slice';
+import { stateProfileActions } from '../../slice';
 
 // Tools
 import { makeRequest } from '../../../../tools/utils/makeRequest';
@@ -12,14 +12,14 @@ import { togglerCreatorAction } from '../../../client/togglers';
 import * as API from '../api/refreshUser';
 
 // Types
-import { GetUserContract } from '../types';
+import { GetRefreshContract } from '../types';
 import {  Profile } from '../../types';
 
-export function* refreshProfile({ payload }: ReturnType<GetUserContract>) {
+export function* refreshProfile({ payload }: ReturnType<GetRefreshContract>) {
     const result: Profile  = yield makeRequest<Profile>({
-        fetcher:      API.fillProfile(payload),
+        fetcher:      API.refreshProfile(payload),
         togglerType:  'isRegister',
-        succesAction: stateUserActions.getUserName,
+        succesAction: stateProfileActions.getUserName,
     });
 
     if (result !== null) {

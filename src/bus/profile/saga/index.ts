@@ -1,7 +1,11 @@
 // Core
 import { useDispatch } from 'react-redux';
-import {  register } from './action';
 import localStore from 'store';
+
+// Action
+import {  register } from './action';
+
+// Hooks
 import { useTogglersRedux } from '../../client/togglers';
 
 export const useAuth = () => {

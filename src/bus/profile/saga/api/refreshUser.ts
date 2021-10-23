@@ -3,7 +3,7 @@ import { Profile } from '../../types';
 
 type IPostUser = (_id: string) => () => Promise<Profile>
 
-export const fillProfile: IPostUser = (_id) => async () => {
+export const refreshProfile: IPostUser = (_id) => async () => {
     const response = await fetch(`${API_URL}/users/refresh/${_id}`, {
         method:  'GET',
         headers: {

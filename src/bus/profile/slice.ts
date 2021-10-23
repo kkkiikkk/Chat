@@ -4,23 +4,23 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Profile } from './types';
 
 // Reducers
-import {  setUserName, introducedUserName, getUserName } from './cases';
+import {  setProfileName, introducedProfileName, getProfileName } from './cases';
 
 
 const initialState: Profile = {
-    _id:      '',
-    username: '',
+    _id:      null,
+    username: null,
 };
 
-export const stateUserSlice = createSlice({
-    name:     'stateUser',
+export const stateProfile = createSlice({
+    name:     'profileState',
     initialState,
     reducers: {
-        setUserName,
-        introducedUserName,
-        getUserName,
+        setUserName:        setProfileName,
+        introducedUserName: introducedProfileName,
+        getUserName:        getProfileName,
     },
 });
 
-export const stateUserActions = stateUserSlice.actions;
-export default stateUserSlice.reducer;
+export const stateProfileActions = stateProfile.actions;
+export default stateProfile.reducer;

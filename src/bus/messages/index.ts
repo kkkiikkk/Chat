@@ -22,7 +22,7 @@ export const useUsers = () => {
         intervalId = setInterval(() => {
             dispatch(getMessages());
         }
-        , 1000);
+        , 4000);
 
         return () => {
             if (intervalId) {
