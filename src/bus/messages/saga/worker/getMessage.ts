@@ -11,7 +11,7 @@ import {  Messages } from '../../types';
 
 
 // API
-import * as API from '../api/getMessages';
+import * as API from '../api';
 
 // Tools
 import { makeRequest } from '../../../../tools/utils';

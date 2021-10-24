@@ -8,7 +8,7 @@ import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { MessageAction } from '../../slices';
 
 // API
-import * as API from '../api/postMessages';
+import * as API from '../api';
 
 // Types
 import { PostMessagesContract } from '../types';

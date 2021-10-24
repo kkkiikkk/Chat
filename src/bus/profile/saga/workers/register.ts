@@ -9,7 +9,7 @@ import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { togglerCreatorAction } from '../../../client/togglers';
 
 // API
-import * as API from '../api/postUser';
+import * as API from '../api';
 
 // Actions
 import { stateProfileActions } from '../../slice';

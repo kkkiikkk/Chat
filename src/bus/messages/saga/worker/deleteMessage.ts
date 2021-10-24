@@ -8,7 +8,7 @@ import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { MessageAction } from '../../slices';
 
 // API
-import * as API from '../api/deleteMessages';
+import * as API from '../api';
 
 // Types
 import { DeleteMessageContract } from '../types';

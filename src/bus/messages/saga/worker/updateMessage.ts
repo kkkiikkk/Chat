@@ -6,7 +6,7 @@ import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { MessageAction } from '../../slices';
 
 // API
-import * as API from '../api/updateMessage';
+import * as API from '../api';
 
 // Types
 import { UpdateMessageContract } from '../types';

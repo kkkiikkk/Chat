@@ -9,7 +9,7 @@ import { makeRequest } from '../../../../tools/utils/makeRequest';
 import { togglerCreatorAction } from '../../../client/togglers';
 
 // API
-import * as API from '../api/refreshUser';
+import * as API from '../api';
 
 // Types
 import { GetRefreshContract } from '../types';

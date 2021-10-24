@@ -15,7 +15,9 @@ import { useFilterStyle } from '../../../tools/hooks/useFilterStyle';
 
 const Login:FC = () => {
     const { createUserProfile: createUser } = useAuth();
+
     const [ name, setName ] = useState('');
+
     const { clickFalse, clickTrue, isClicked } = useFilterStyle();
 
     return (
