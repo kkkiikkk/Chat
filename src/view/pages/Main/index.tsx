@@ -135,6 +135,7 @@ const Messasger: FC = () => {
                                         :  updateMessage({ text: text, _id: ids._id });
                                     clickIsResetFalse();
                                     clearMessages();
+                                    clickIsDisableTrue();
                                 }
                             }
                         } }>
