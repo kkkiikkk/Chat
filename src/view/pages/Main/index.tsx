@@ -166,14 +166,19 @@ const Messasger: FC = () => {
             </ButtonKeyBoard>
             <KeyBoard
                 clearMessage = { clearMessages }
+                clickIsDisable = { clickIsDisableTrue }
+                clickReset = { clickIsResetFalse }
                 code = { code }
                 codeButton = { codeButton }
                 createMessage = {  createMessages }
                 delete = { deleteElements }
                 deleteButtonCode = { deleteButtonCode }
                 focusEL = { inputEL }
+                id = { ids._id }
                 name = { userName }
+                reset = { isReset }
                 text = { text }
+                update = { updateMessage }
                 visible = { visible }
                 onClick = { () => clickTrue() }>
             </KeyBoard>

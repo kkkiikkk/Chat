@@ -24,6 +24,11 @@ import { keyBoardButton } from './keyBoard';
      codeButton: Function,
      deleteButtonCode: Function,
      focusEL:   MutableRefObject<HTMLInputElement | null>
+     clickIsDisable: Function
+     update: Function
+     clickReset: Function
+     reset: boolean
+     id: string
  }
 
 
@@ -160,8 +165,12 @@ export const KeyBoard:FC<IProps> = (props: IProps) => {
                     visible = { props.code.includes(13) }
                     onClick = {  () => {
                         if (props.text.length !== 0 && props.name !== null) {
-                            props.createMessage({ text: props.text, username: props.name });
                             props.clearMessage();
+                            props.reset ? props.createMessage({ text: props.text, username: props.name })
+                                : props.update({ text: props.text, _id: props.id });
+                            props.clickReset();
+                            props.clearMessage();
+                            props.clickIsDisable();
                         }
                     }
                     }>Enter
