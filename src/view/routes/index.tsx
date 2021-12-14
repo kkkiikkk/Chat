@@ -1,5 +1,5 @@
 // Core
-import React, { FC, Suspense, useEffect } from 'react';
+import React, { FC, Suspense } from 'react';
 
 // Routes
 import { Public } from './Public';
@@ -16,7 +16,6 @@ export const Routes: FC = () => {
 
     return (
         <Suspense fallback = { <Spinner /> }>
-            {/* <Private /> */}
             {
                 isLoggedIn
                     ? <Private />

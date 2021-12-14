@@ -10,9 +10,14 @@ export const useButtonCode = () => {
     const { buttonCodeMessages } = useSelector((state) => state);
 
 
-    const codeButton =  (code: number) => dispatch(
-        buttonMessageAction.buttonCode(code),
-    );
+    const codeButton =  (code: number) => {
+        console.log(buttonCodeMessages);
+        if (!buttonCodeMessages.includes(code)) {
+            dispatch(
+                buttonMessageAction.buttonCode(code),
+            );
+        }
+    };
 
     const deleteButtonCode = (code: number) => void dispatch(
         buttonMessageAction.deleteButtonCode(code),

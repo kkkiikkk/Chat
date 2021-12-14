@@ -12,9 +12,7 @@ export const createMessage: types.AddMessageContract = (state, action) => {
 };
 
 export const deleteMessage: types.DeleteMEssage = (state, action) => {
-    if (action) {
-        [ ...state.splice(state.length - 1) ];
-    }
+    state.filter(({ _id }) => _id !== action.payload);
 };
 export const updateMessage: types.UpdateMessageContract = (state, action) => {
     const index = state.indexOf(action.payload);

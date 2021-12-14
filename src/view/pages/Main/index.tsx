@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-closing-tag-location */
 // Core
 import React, { FC,  useRef,  useLayoutEffect, useState } from 'react';
-import {  Typography } from '@mui/material';
+import {  Tooltip } from '@mui/material';
 import  moment  from 'moment';
 import { NavLink } from 'react-router-dom';
 
@@ -17,11 +17,14 @@ import { useButtonCode } from '../../../bus/client/keyBoard';
 // Components
 import { ErrorBoundary } from '../../components';
 import { KeyBoard } from '../../components/Keyboard';
+import {  SendSharp, LogoutSharp, AccountCircleSharp } from '@mui/icons-material';
+import CancelIcon  from '@mui/icons-material/Cancel';
+
 
 // Styles
 import { GlobalStylesComponents } from '../Registration/GlobalStyles';
 import { CustomButtonOut, CustomSection } from '../Registration/styles';
-import { Message, Chat, MessagesContainer, CustomInput, Footer, Send, StyleP, ButtonKeyBoard, DeleteButton, Cancel } from './styles';
+import { StyleS, Message, Chat, MessagesContainer, CustomInput, Footer, Send, StyleP, ButtonKeyBoard, DeleteButton, Cancel } from './styles';
 
 
 const Messasger: FC = () => {
@@ -38,7 +41,7 @@ const Messasger: FC = () => {
 
     const { deleteUserName, userName } = useUserProfile();
 
-    const { users } = useUsers();
+    const { users, deleteMs } = useUsers();
 
     const { createMessages, deleteMessage, updateMessage } = useMessage();
 
@@ -71,8 +74,10 @@ const Messasger: FC = () => {
                             disabled = { !isReset }
                             onClick = { () => {
                                 // eslint-disable-next-line no-alert
-                                confirm('Вы действитель хотите удалить сообщение?')
-                                    ? deleteMessage({ _id }) : null;
+                                if (confirm('Вы действитель хотите удалить сообщение?')) {
+                                    deleteMessage({ _id });
+                                    deleteMs(_id);
+                                }
                             } }>Delete
                         </DeleteButton>
                         <DeleteButton
@@ -82,10 +87,10 @@ const Messasger: FC = () => {
                                 clickIsResetTrue();
                                 setId({ _id, text });
                                 clickIsDisableFalse();
-                            }  }>Update</DeleteButton>
+                            } }>Update</DeleteButton>
                     </> : null}
-                <StyleP>{username}</StyleP>
-                <p>{text}</p>
+                <StyleP>{userName !== username ? username : null}</StyleP>
+                <StyleS>{text}</StyleS>
                 <StyleP>{moment(createdAt).format('LT')}</StyleP>
                 <StyleP>{createdAt === updatedAt ? '' : 'Исправлено' }</StyleP>
             </Message>
@@ -102,10 +107,13 @@ const Messasger: FC = () => {
                         logOutUser();
                         deleteUserName();
                     } }>
-                    Log Out
+                    <LogoutSharp />
                 </CustomButtonOut>
             </NavLink>
-            <Typography sx = {{ fontSize: '40px', textAlign: 'center' }}>Hello User: {userName}</Typography>
+            <Tooltip title =  { `your nick name is ${userName}` }  >
+                <AccountCircleSharp sx = {{ width: '80px', height: '80px', float: 'right', color: '#2b0e34' }}/>
+            </Tooltip>
+            {/* <Typography sx = {{ fontSize: '40px', textAlign: 'center' }}>Hello User: {userName}</Typography> */}
             <Chat>
                 <MessagesContainer ref = { messageEl }>
                     {messageJSX}
@@ -117,7 +125,8 @@ const Messasger: FC = () => {
                             clearMessages();
                             clickIsResetFalse();
                             clickIsDisableTrue();
-                        } }>X</Cancel>
+                        } }><CancelIcon />
+                    </Cancel>
                     <CustomInput
                         ref = { inputEL }
                         type = 'text'
@@ -140,6 +149,7 @@ const Messasger: FC = () => {
                             }
                         } }>
                     </CustomInput>
+
                     <Send
                         disabled = { text.length === 0 }
                         onClick = { () =>  {
@@ -150,7 +160,7 @@ const Messasger: FC = () => {
                                 clearMessages();
                                 clickIsDisableTrue();
                             }
-                        } }>{isReset ? 'SEND' : 'UPDATE'}
+                        } }><SendSharp sx = {{ width: 'auto' }} />
                     </Send>
                 </Footer>
 

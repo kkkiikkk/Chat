@@ -1,11 +1,11 @@
 // Core
-import { delay } from 'redux-saga/effects';
+import { delay, put } from 'redux-saga/effects';
 
 // Tools
 import { makeRequest } from '../../../../tools/utils/makeRequest';
 
 // Actions
-import { MessageAction } from '../../slices';
+import { getMessages } from '../actions';
 
 // API
 import * as API from '../api';
@@ -15,8 +15,10 @@ import { DeleteMessageContract } from '../types';
 
 export function* deleteMessage(payload : ReturnType<DeleteMessageContract>) {
     yield makeRequest<boolean>({
-        fetcher:      API.deleteMessage(payload.payload),
-        succesAction: MessageAction.deleteMesage,
+        fetcher:           API.deleteMessage(payload.payload),
+        successSideEffect: function* () {
+            yield put(getMessages());
+        },
     });
     yield delay(500);
 }

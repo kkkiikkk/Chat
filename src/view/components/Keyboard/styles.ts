@@ -8,7 +8,7 @@ export const Container = styled.div<{visible: boolean}>`
     margin-top:40px;
     display: ${(props) => props.visible ? 'block' : 'none'};
     @media screen and (max-width: 500px){
-        width: 300px;
+        width: auto
     }
 `;
 
@@ -27,10 +27,10 @@ export const KeyButton = styled.button<{visible: boolean}>`
     width: 100%;
     cursor: pointer;
     &:active{
-        background-color: #03e9f4;
+        background-color: #baa2cb;
     }
     ${(props) => props.visible && css`
-        background-color: #03e9f4;
+        background-color:#baa2cb;
     `};
 `;
 

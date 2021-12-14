@@ -7,6 +7,9 @@ export const UserBox = styled.div`
 `;
 
 export const LoginBox = styled.div`
+@media (max-width: 410px) {
+    width: 80%;
+  }
     position: absolute;
     top: 50%;
     left: 50%;
@@ -50,9 +53,12 @@ export const CustomInput = styled.input`
   &:focus ~ label{
     top: -20px;
   left: 0;
-  color: #03e9f4;
+  color: #baa2cb;
   font-size: 12px;
 };
+@media (max-width: 410px) {
+    width: 80%;
+  }
 width:300px;
 `;
 
@@ -68,16 +74,18 @@ export const CustomLabel = styled.label`
 `;
 
 export const CustomButton = styled.button<{disabled: boolean}>`
-@media (max-width: 768px) {
-    width: 30%;
+@media (max-width: 430px) {
+    width: 40%;
+    font-size:8px;
   }
   behavior: 'smooth';
   position: relative;
   width: 180px;
   display: inline-block;
   padding:  10px 20px;
-  color: #03e9f4;
+  color: #baa2cb;
   font-size: 24px;
+  text-align:center;
   text-decoration: none;
   text-transform: uppercase;
   transition: .5s;
@@ -86,14 +94,14 @@ export const CustomButton = styled.button<{disabled: boolean}>`
   box-shadow:0 15px 25px rgba(0,0,0,.6);
   ${(props) => !props.disabled && css`
     &:hover {
-    background: #03e9f4;
+    background: #baa2cb;
     cursor: pointer;
     color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 100px #03e9f4;
+    box-shadow: 0 0 5px #baa2cb,
+                0 0 25px #baa2cb,
+                0 0 50px #baa2cb,
+                0 0 100px #baa2cb;
   }
   `}
 `;
@@ -101,9 +109,11 @@ export const CustomButtonOut = styled.button`
   behavior: 'smooth';
   position: relative;
   width: 180px;
+  margin-bottom: 30px;
+  margin-top: 20px;
   display: inline-block;
   padding:  10px 20px;
-  color: #03e9f4;
+  color: #baa2cb;
   font-size: 24px;
   text-decoration: none;
   text-transform: uppercase;
@@ -112,14 +122,14 @@ export const CustomButtonOut = styled.button`
   background: rgba(0,0,0,.5);
   box-shadow:0 15px 25px rgba(0,0,0,.6);
 &:hover {
-    background: #03e9f4;
+    background: #baa2cb;
     cursor: pointer;
     color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4,
-                0 0 25px #03e9f4,
-                0 0 50px #03e9f4,
-                0 0 100px #03e9f4;
+    box-shadow: 0 0 5px #baa2cb,
+                0 0 25px #baa2cb,
+                0 0 50px #baa2cb,
+                0 0 100px #baa2cb;
   }
 `;
 
@@ -128,4 +138,8 @@ export const CustomLink = styled(NavLink)`
 `;
 export const CustomSection = styled.section`
 overflow-x: hidden;
+margin: 0 auto;
+@media screen and (max-width: 710px){
+        width: 100%
+      }
 `;

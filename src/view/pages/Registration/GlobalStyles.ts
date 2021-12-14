@@ -10,6 +10,6 @@ export const GlobalStylesComponents = createGlobalStyle`
         margin:0;
         padding:0;
         font-family: sans-serif;
-        background: linear-gradient(#141e30, #243b55);
+        background: rgba(175,146,196, 0.7)
     };
 `;
