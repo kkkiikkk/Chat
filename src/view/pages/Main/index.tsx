@@ -13,6 +13,8 @@ import { useUserProfile } from '../../../bus/profile';
 import { useMessage } from '../../../bus/messages/saga';
 import { useTextMessage } from '../../../bus/client/textMessage';
 import { useButtonCode } from '../../../bus/client/keyBoard';
+import { useMessagess } from '../../../bus/messageRecoil';
+
 
 // Components
 import { ErrorBoundary } from '../../components';
@@ -40,6 +42,8 @@ const Messasger: FC = () => {
 
     const { users } = useUsers();
 
+    const data = useMessagess();
+
     const { createMessages, deleteMessage, updateMessage } = useMessage();
 
     const {  clickTrue,  clickVisibleFalse, clickVisibleTrue,
@@ -59,7 +63,7 @@ const Messasger: FC = () => {
         }
     }, [ users[ 0 ]?._id ]);
 
-    const messageJSX = users.map(({ text, _id, username, createdAt, updatedAt }) => {
+    const messageJSX = data.messageRecoil.map(({ text, _id, username, createdAt, updatedAt }) => {
         return (
 
             <Message

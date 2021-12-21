@@ -4,6 +4,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
+import { RecoilRoot } from 'recoil';
 
 // App initializaion
 import {
@@ -23,9 +24,11 @@ initIconsLibrary();
 const Root = () => {
     return (
         <ReduxProvider store = { reduxStore }>
-            <Router history = { routerHistory }>
-                <App />
-            </Router>
+            <RecoilRoot>
+                <Router history = { routerHistory }>
+                    <App />
+                </Router>
+            </RecoilRoot>
         </ReduxProvider>
     );
 };
